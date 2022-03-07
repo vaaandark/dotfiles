@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ "$1" ]; then
+    compiler=$1
+else
+    compiler='arduino:avr:uno'
+fi
+
+arduino-cli compile -b $compiler

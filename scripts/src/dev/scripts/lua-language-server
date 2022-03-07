@@ -1,0 +1,13 @@
+#!/bin/sh
+path="$HOME/.vscode/extensions/"
+for item in $(ls "${path}"); do
+  if [[ "${item}" =~ "sumneko" ]]; then
+    path="${path}${item}"
+    break
+  fi
+done
+
+[[ ${path} == "$HOME/.vscode/extensions" ]] && exit 1
+
+"${path}/server/bin/lua-language-server"
+

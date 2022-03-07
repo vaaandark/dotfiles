@@ -1,0 +1,7 @@
+#!/bin/sh
+now=$(date -u +"%F_%T")
+window_id=$(xdotool getwindowfocus -f)
+window_name=$(xdotool getwindowname ${window_id} | awk '{ print $NF }')
+path=$(mktemp "$HOME/Pictures/screenshots/${now}_${window_name%%*##*}_XXXX.png")
+import -window ${window_id} ${path}
+xclip -selection clipboad -target image/png -i ${path}

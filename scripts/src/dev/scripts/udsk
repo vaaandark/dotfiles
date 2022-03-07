@@ -1,0 +1,59 @@
+#!/bin/bash
+#
+# mount usb drivers and link it to HOME
+# Usage:
+#   udsk ${path_of_a_device} - mount a usb driver
+#   udsk -r                  - unmount usb drivers
+# dependency:
+#   udisks
+
+# rm the link and umount the udisk
+# Arguments:
+#   $1 item - the name of the udisk
+rm_and_umount() {
+  item=$1
+  rm "${item}"
+  dpath="$(cat "/tmp/device_of_${item}")"
+  if [[ -b "${dpath}" ]]; then
+    udisks --unmount "${dpath}" || return 1
+    rm "/tmp/device_of_${item}"
+  fi
+  echo "umount ${dpath} successfully and rm its link at $HOME/${item}"
+  return 0
+}
+ 
+if [[ $1 == '-r' ]]; then
+  (
+    cd "$HOME"
+    for dir in $(ls); do
+      if [[ -h ${dir} && -n "$(file ${dir} | cut -f4- | grep -oP '/media/[^*]*')" ]]; then
+        while :; do
+            read -p "remove the link ${dir}, Is this ok [y/N]: " yn
+            case $yn in
+                [Yy]* )
+                  rm_and_umount ${dir}
+                  break;;
+                [Nn]* )
+                  break;;
+                * )
+                  rm_and_umount ${dir}
+                  break;;
+            esac
+        done
+      fi
+    done
+    exit 0
+)
+fi
+
+disk=$1
+if [[ -b "${disk}" ]]; then
+  path=$(( udisks --mount "${disk}" || exit ) | cut -d ' ' -f4 | grep -oP '/media/[^*]*')
+  name=${path#/media/}
+  [[ -z ${name} || -d ${name} || -f ${name} ]] && exit 1
+  ln -s "${path}" "$HOME/${name}"
+  echo "$1" > "/tmp/device_of_${name}"
+  echo "mount $1 successfully and link it to $HOME/${name}"
+  exit 0
+fi
+  

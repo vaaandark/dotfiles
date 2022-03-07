@@ -1,0 +1,23 @@
+#!/bin/bash
+set -xv
+todos="$HOME/.off-line-list"
+today=$(date '+%D' | tr / -)
+oldir="$HOME/.off-line"
+tddir="${oldir}/${today}"
+
+if [[ ! -d "${tddir}" ]]; then
+  mkdir -p ${tddir}
+fi
+
+if [[ -s "${todos}" ]]; then
+  notify-send -i '/usr/share/icons/Numix-Circle/48/apps/Terminal.svg' BEGIN "prepare for off-line time"
+  beg="$SECONDS"
+  (
+    cd ${tddir}
+    source "${todos}"
+    > "${todos}"
+  )
+  end="$SECONDS"
+  ((sec=end-beg))
+  notify-send -i '/usr/share/icons/Numix-Circle/48/apps/Terminal.svg' DONE "prepare for off-line time, total ${sec}s"
+fi

@@ -1,0 +1,48 @@
+[wifi]
+command=echo "WIFI $(nmcli d w s | head -n 1 | cut -d ' ' -f2-)"
+interval=5
+color=#91E78B
+
+[ip]
+command=hostname -i | awk '{ print "IP "$NF" " }'
+interval=5
+color=#91E78B
+
+[BATTERY]
+command=~/.config/i3blocks/battery/battery_info.sh
+interval=5
+
+[CPU]
+full_text= 0.00% 
+command=~/.config/i3blocks/cpu/cpu_info.sh
+interval=1
+color=#00B4EB
+
+[MEM]
+command=free -h | awk '/Mem:/ { printf("%5s/%s \n", $3, $2) }'
+interval=1
+color=#FEC925
+
+[SOUND]
+full_text= 0% 
+command=~/.config/i3blocks/sound/sound_info.sh
+interval=1
+signal=1
+color=#0EF17F
+
+[TASK]
+command=task | tail -n 1 | tr '[:lower:]' '[:upper:]'
+interval=10
+color=#E5201D
+
+[TIME_DATE]
+command=date +"%D %a %H:%M:%S"
+interval=1
+
+[AUTO_BACKLIGHT]
+command=~/.local/bin/set_backlight
+interval=1
+
+[BATTERY_CHECK]
+command=~/.local/bin/battery-check
+interval=2400

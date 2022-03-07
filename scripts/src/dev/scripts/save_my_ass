@@ -1,0 +1,9 @@
+mount /dev/nvme0n1p8 /mnt
+mount /dev/nvme0n1p5 /mnt/home
+mount /dev/nvme0n1p1 /mnt/boot/efi
+mount --bind /dev /mnt/dev
+mount -t devpts /dev/devtps /mnt/dev/pts
+mount -t proc /proc /mnt/proc
+mount -t sysfs /sys /mnt/sys
+mount -t efivarfs /sys/firmware/efi/efivars /mnt/sys/firmware/efi/efivars
+chroot /mnt /bin/zsh

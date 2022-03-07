@@ -1,0 +1,2 @@
+#!/bin/sh
+astyle -CKHwp --style=linux --indent=tab --align-pointer=name --suffix=none $@

@@ -1,0 +1,3 @@
+#!/bin/sh
+bluetoothctl --timeout 5 -- scan on > /dev/null
+bluetoothctl -- connect DC:2C:26:FE:B6:11
