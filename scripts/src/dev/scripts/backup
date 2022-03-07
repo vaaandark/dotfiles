@@ -1,0 +1,86 @@
+#!/bin/bash
+#set -xv
+
+target="$HOME/.backup"
+
+# src
+blog="$HOME/Documents/blog"
+fcitx5="$HOME/.local/share/fcitx5"
+coding_homework="$HOME/Documents/CodingHomework"
+scripts="$HOME/src/dev/scripts"
+
+items=('Blog' 'fcitx5' 'CodingHomework' 'Scripts')
+sources=($blog $fcitx5 $coding_homework $scripts)
+
+date_info=$(date '+%D' | tr / -)
+
+info_() {
+  printf '[%s] ' $1
+  echo ${@:2}
+}
+
+bkup_clean() {
+	for dir in ${items[@]}; do
+		info_ 'info' rm -rf "${target}/${dir}/*"
+		rm -rf ${target}/${dir}/*
+	done
+}
+
+ifnmkd() {
+	for dir in $@; do
+		if [ ! -d ${dir} ]; then
+			info_ 'info' "mkdir ${dir}"
+			mkdir ${dir}
+		fi
+	done
+}
+
+bkup_check() {
+	info_ 'info' "check target dir: ${target}"
+  (
+    cd ${target}
+    ifnmkd $@
+)
+}
+
+backup() {
+	for i in $(seq 0  $["${#items[*]}" - 1]); do
+		item=${items[$i]}
+		src=${sources[$i]}
+
+    (
+      cd ${src}
+
+      info_ 'info' "tar ${item} from ${src}"
+      tar -cf "${target}/${item}/${item}-${date_info}.tar" ./*
+      (
+        cd "${target}/${item}"
+        if [ -f "$(ls | grep "${date_info}")" ]; then
+          info_ 'warning' "${item} already backuped today, overwrite them."
+        fi
+    )
+  )
+	done
+}
+
+ifnmkd ${target}
+
+bkup_check ${items[@]}
+
+while getopts ':cu' OPT; do
+	case $OPT in
+	c)
+		info_ 'info' "clean backup"
+		bkup_clean;;
+	u)
+		info_ 'info' "update backup"
+		bkup_clean
+		backup;;
+	?)
+		info_ 'error' "unknown parameter";;
+	esac
+done
+
+if [ $# -eq 0 ]; then
+	backup
+fi

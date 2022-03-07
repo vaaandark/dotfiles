@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ "$1" ]; then
+    compiler=$1
+else
+    compiler='arduino:avr:uno'
+fi
+
+if [ "$2" ]; then
+    port=$2
+else
+    port=/dev/ttyUSB0
+fi
+
+arduino-cli compile -b $compiler
+
+arduino-cli upload -p $port -b $compiler

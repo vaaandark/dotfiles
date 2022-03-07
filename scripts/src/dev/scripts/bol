@@ -1,0 +1,3 @@
+#!/bin/bash
+todos="$HOME/.off-line-list"
+echo "$@" > "${todos}"

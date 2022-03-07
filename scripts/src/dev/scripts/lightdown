@@ -1,0 +1,2 @@
+#!/bin/sh
+light -U 10 && echo "$(date +%s) $(light)" > /tmp/auto_backlight.log

@@ -1,0 +1,11 @@
+# 第一个参数为字体类型，如'regular', 'bold'等
+# 第二个参数为字体大小
+# 用追加重定向加入到urxvt配置
+#!/bin/bash
+if [ "$2" = "regular" ]; then
+	echo 'URxvt*font: \'
+else
+	printf "URxvt*"%s"font: \\\n" $1
+fi
+fc-list | grep style | sed '$d' | awk -F : '{ print $2 }' | awk -F , '{ printf("xft:%s:size='$2':antialias=true:hinting=true,\\\n", $1) }'
+echo

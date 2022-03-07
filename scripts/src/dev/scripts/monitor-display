@@ -1,0 +1,24 @@
+#!/bin/sh
+laptop_monitor() {
+  xrandr --output HDMI-A-0 --off --output eDP --mode 2240x1400 --rate 60.02 --pos 0x0 --rotate normal --output DisplayPort-0 --off --output DisplayPort-1 --off
+}
+
+external_monitor() {
+  xrandr --output eDP --off --output HDMI-A-0 --mode 3440x1440 --rate 99.99 --pos 0x0 --rotate normal --output DisplayPort-0 --off --output DisplayPort-1 --off
+}
+
+display() {
+  lock='/tmp/display.lock'
+  if [ -f $lock ]; then
+    laptop_monitor || exit 1
+    rm $lock
+  else
+    external_monitor || exit 1
+    touch $lock
+  fi
+}
+
+if [[ -n $(xrandr | grep HDMI-A-0) ]]; then
+  display
+    $HOME/.local/bin/set_wallpapers
+fi

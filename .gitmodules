@@ -1,0 +1,66 @@
+[submodule "nvim/.config/nvim/plugged/vim-airline"]
+	path = nvim/.config/nvim/plugged/vim-airline
+	url = git@github.com:vim-airline/vim-airline.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/auto-pairs"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/auto-pairs
+	url = git@github.com:jiangmiao/auto-pairs.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/rainbow"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/rainbow
+	url = git@github.com:luochen1990/rainbow.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/vim-startify"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/vim-startify
+	url = git@github.com:mhinz/vim-startify.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/vim-terminal-help"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/vim-terminal-help
+	url = git@github.com:skywind3000/vim-terminal-help.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/asyncrun.vim"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/asyncrun.vim
+	url = git@github.com:skywind3000/asyncrun.vim.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/ultisnips"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/ultisnips
+	url = git@github.com:SirVer/ultisnips.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/gruvbox"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/gruvbox
+	url = git@github.com:morhetz/gruvbox.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/suda.vim"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/suda.vim
+	url = git@github.com:lambdalisue/suda.vim.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/indentLine"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/indentLine
+	url = git@github.com:Yggdroot/indentLine.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/vim-airline"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/vim-airline
+	url = git@github.com:vim-airline/vim-airline.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/vim-surround"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/vim-surround
+	url = git@github.com:tpope/vim-surround.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/nvim-lspconfig"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/nvim-lspconfig
+	url = git@github.com:neovim/nvim-lspconfig.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/cmp-nvim-lsp"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/cmp-nvim-lsp
+	url = git@github.com:hrsh7th/cmp-nvim-lsp.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/cmp-buffer"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/cmp-buffer
+	url = git@github.com:hrsh7th/cmp-buffer.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/cmp-path"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/cmp-path
+	url = git@github.com:hrsh7th/cmp-path.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/cmp-cmdline"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/cmp-cmdline
+	url = git@github.com:hrsh7th/cmp-cmdline.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/nvim-cmp"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/nvim-cmp
+	url = git@github.com:hrsh7th/nvim-cmp.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/cmp-vsnip"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/cmp-vsnip
+	url = git@github.com:hrsh7th/cmp-vsnip.git
+[submodule "~/dotfiles/nvim/.config/nvim/plugged/vim-vsnip"]
+	path = ~/dotfiles/nvim/.config/nvim/plugged/vim-vsnip
+	url = git@github.com:hrsh7th/vim-vsnip.git
+[submodule "nvim/.config/nvim/plugged/nvim-web-devicons"]
+	path = nvim/.config/nvim/plugged/nvim-web-devicons
+	url = git@github.com:kyazdani42/nvim-web-devicons.git
+[submodule "nvim/.config/nvim/plugged/lualine.nvim"]
+	path = nvim/.config/nvim/plugged/lualine.nvim
+	url = git@github.com:nvim-lualine/lualine.nvim.git

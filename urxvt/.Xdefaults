@@ -1,0 +1,95 @@
+URxvt*perl-ext-common: bell-command,clipboard-osc,eval,matcher,option-popup,overlay-osc,readline,remote-clipboard,searchable-scrollback,selection,selection-autotransform,selection-pastebin,selection-popup,selection-to-clipboard,xim-onthespot
+!extensions that no longer used
+!background,resize-font,confirm-paste,pasta
+URxvt*font: \
+xft:SauceCodePro\ Nerd\ Font\ Mono:style=Regular:size=24:antialias=true:hinting=true,\
+xft:WenQuanYi\ Micro\ Hei:size=24:antialias=true:hinting=true,\
+xft:Noto\ Color\ Emoji:size=24:antialias=true:hinting=true,\
+xft:Noto\ Emoji:size=24:antialias=true:hinting=true,\
+xft:Android\ Emoji:size=24:antialias=true:hinting=true,\
+xft:Unifont:style=Medium:size=24:antialias=true:hinting=true
+
+URxvt*boldfont: \
+xft:SauceCodePro\ Nerd\ Font\ Mono:style=Bold:size=24:antialias=true:hinting=true,\
+xft:WenQuanYi\ Micro\ Hei:size=24:antialias=true:hinting=true,\
+xft:Unifont:style=Medium:size=24:antialias=true:hinting=true
+
+URxvt*borderLess: Off
+URxvt*cursorBlink:False
+URxvt*cursorColor:#eeeeee
+URxvt*cursorUnderline:False
+URxvt*depth:24
+URxvt*externalBorder:False
+URxvt*geometry: 80x25
+!A extra character for extension tabbed
+!URxvt*geometry: 81x26
+!URxvt*iconFile: /usr/share/pixmaps/console48.png
+URxvt*imLocale: zh_CN.UTF-8
+URxvt*inputMethod:fcitx
+URxvt*matcher.button:1
+URxvt*mouseWheelScrollPage:False
+URxvt*multichar_encoding:utf-8
+URxvt*pointerBlank:True
+URxvt*preeditType:OnTheSpot
+URxvt*saveLines:10000
+URxvt*scrollBar: False
+URxvt*scrollTtyKeypress:True
+URxvt*scrollTtyOutput:True
+URxvt*scrollWithBuffer:True
+URxvt*scrollstyle: plain
+URxvt*thickness: 10
+URxvt*title: Terminal
+URxvt*urlLauncher:google-chrome
+URxvt*visualBell:False
+URxvt.iso14755:False
+URxvt.keysym.C-M-c: builtin-string:
+URxvt.keysym.C-M-v: builtin-string:
+URxvt.keysym.Control-Shift-V: eval:paste_clipboard
+URxvt.keysym.Control-Shift-C: eval:selection_to_clipboard
+
+!URxvt.tabbedex.tabbar-fg:7
+!URxvt.tabbedex.tabbar-bg:0
+!URxvt.tabbedex.tab-fg:0
+!URxvt.tabbedex.tab-bg:7
+!URxvt.tabbedex.bell-fg:0
+!URxvt.tabbedex.bell-bg:7
+!URxvt.tabbedex.bell-tag-fg:0
+!URxvt.tabbedex.bell-tag-bg:7
+
+!URxvt.keysym.Control-Tab:          tabbedex:next_tab
+!URxvt.keysym.Control-Shift-Tab:    tabbedex:prev_tab
+! Shift-Tab is often bound to ISO_Left_Tab in X keyboard
+! layouts.  In those layouts Control-Shift-Tab wont
+! work and Control-ISO_Left_Tab is needed instead:
+!URxvt.keysym.Control-ISO_Left_Tab: tabbedex:prev_tab
+
+! Gruvbox Dark
+! hard contrast: *background: #1d2021
+*background: #282828
+! soft contrast: *background: #32302f
+*foreground: #ebdbb2
+! Black + DarkGrey
+*color0:  #282828
+*color8:  #928374
+! DarkRed + Red
+*color1:  #cc241d
+*color9:  #fb4934
+! DarkGreen + Green
+*color2:  #98971a
+*color10: #b8bb26
+! DarkYellow + Yellow
+*color3:  #d79921
+*color11: #fabd2f
+! DarkBlue + Blue
+*color4:  #458588
+*color12: #83a598
+! DarkMagenta + Magenta
+*color5:  #b16286
+*color13: #d3869b
+! DarkCyan + Cyan
+*color6:  #689d6a
+*color14: #8ec07c
+! LightGrey + White
+*color7:  #a89984
+*color15: #ebdbb2
+

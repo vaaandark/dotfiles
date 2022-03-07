@@ -1,0 +1,3 @@
+#!/bin/sh
+bluetoothctl --timeout 5 -- scan on > /dev/null
+bluetoothctl -- connect 00:1F:20:FA:48:93
