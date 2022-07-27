@@ -1,0 +1,4 @@
+#!/bin/bash
+file=$1
+sed -i '1i#\ '"${file}"'' "${file}"
+xclip "${file}" -selection clipboard -i

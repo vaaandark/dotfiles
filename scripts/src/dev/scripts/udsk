@@ -24,19 +24,19 @@ rm_and_umount() {
  
 if [[ $1 == '-r' ]]; then
   (
-    cd "$HOME"
-    for dir in $(ls); do
-      if [[ -h ${dir} && -n "$(file ${dir} | cut -f4- | grep -oP '/media/[^*]*')" ]]; then
+    cd "$HOME" || exit 1
+    for dir in ./*; do
+      if [[ -h "${dir}" && -n "$(file "${dir}" | cut -f4- | grep -oP '/media/[^*]*')" ]]; then
         while :; do
-            read -p "remove the link ${dir}, Is this ok [y/N]: " yn
+            read -p -r "remove the link ${dir}, Is this ok [y/N]: " yn
             case $yn in
                 [Yy]* )
-                  rm_and_umount ${dir}
+                  rm_and_umount "${dir}"
                   break;;
                 [Nn]* )
                   break;;
                 * )
-                  rm_and_umount ${dir}
+                  rm_and_umount "${dir}"
                   break;;
             esac
         done
@@ -48,7 +48,7 @@ fi
 
 disk=$1
 if [[ -b "${disk}" ]]; then
-  path=$(( udisks --mount "${disk}" || exit ) | cut -d ' ' -f4 | grep -oP '/media/[^*]*')
+  path=$(udisks --mount "${disk}" || exit | cut -d ' ' -f4 | grep -oP '/media/[^*]*')
   name=${path#/media/}
   [[ -z ${name} || -d ${name} || -f ${name} ]] && exit 1
   ln -s "${path}" "$HOME/${name}"
@@ -56,4 +56,4 @@ if [[ -b "${disk}" ]]; then
   echo "mount $1 successfully and link it to $HOME/${name}"
   exit 0
 fi
-  
+

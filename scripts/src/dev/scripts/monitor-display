@@ -20,5 +20,5 @@ display() {
 
 if [[ -n $(xrandr | grep HDMI-A-0) ]]; then
   display
-    $HOME/.local/bin/set_wallpapers
+  "$HOME/.local/bin/set_wallpapers"
 fi
