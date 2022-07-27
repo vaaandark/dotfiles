@@ -1,13 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 path="$HOME/.vscode/extensions/"
-for item in $(ls "${path}"); do
+for item in "${path}"/*; do
   if [[ "${item}" =~ "sumneko" ]]; then
     path="${path}${item}"
     break
   fi
 done
 
-[[ ${path} == "$HOME/.vscode/extensions" ]] && exit 1
+[[ "${path}" = "$HOME/.vscode/extensions" ]] && exit 1
 
 "${path}/server/bin/lua-language-server"
 

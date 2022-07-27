@@ -1,4 +1,4 @@
 #!/bin/sh
-cd "$HOME/.local/bin/"
+cd "$HOME/.local/bin/" || exit 1
 ln -sf ~/src/dev/scripts/* ./
 

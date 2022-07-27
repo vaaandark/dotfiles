@@ -1,7 +1,7 @@
 #!/bin/bash
 icon_path='/usr/share/icons/Numix-Circle/48/apps/battery.svg'
 warn_info='Discharging!!! Please always use UNDER charge.'
-if [[ -n $(acpi -a |grep 'off-line') ]]; then
-  notify-send -u critical -t 5000 -i ${icon_path} "${warn_info}"
+if acpi -a | grep -q 'off-line'; then
+  notify-send -u critical -t 5000 -i "${icon_path}" "${warn_info}"
 fi
 

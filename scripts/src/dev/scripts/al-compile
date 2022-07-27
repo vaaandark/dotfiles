@@ -6,4 +6,4 @@ else
     compiler='arduino:avr:uno'
 fi
 
-arduino-cli compile -b $compiler
+arduino-cli compile -b "$compiler"

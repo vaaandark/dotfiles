@@ -12,6 +12,6 @@ else
     port=/dev/ttyUSB0
 fi
 
-arduino-cli compile -b $compiler
+arduino-cli compile -b "$compiler"
 
-arduino-cli upload -p $port -b $compiler
+arduino-cli upload -p "$port" -b "$compiler"
