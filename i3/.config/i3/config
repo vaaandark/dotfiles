@@ -30,6 +30,7 @@ for_window [class=".*"] title_format "<b>%title</b>"
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
+#exec --no-startup-id export GDK_DPI_SCALE=1.5 && birdtray
 exec --no-startup-id xss-lock --transfer-sleep-lock -- $scripts_dir/i3exit suspend --nofork
 exec --no-startup-id pkill clash
 exec --no-startup-id sleep 1; clash
@@ -48,7 +49,8 @@ bindsym $mod+q exec rofi -show run -font "Source Code Pro 20" -theme "/usr/share
 
 # run app
 bindsym $mod+Ctrl+g exec google-chrome
-#bindsym $mod+Ctrl+m exec export GDK_DPI_SCALE=1.5 && thunderbird
+bindsym $mod+Ctrl+m exec export GDK_DPI_SCALE=1.5 && birdtray
+bindsym $mod+Ctrl+x exec export GDK_DPI_SCALE=1.5 && firefox
 bindsym $mod+Ctrl+j exec /opt/joplin.AppImage --no-sandbox
 bindsym $mod+Ctrl+t exec export QT_IM_MODULE=fcitx && /opt/Telegram/Telegram
 bindsym $mod+Ctrl+q exec /opt/Icalingua++/icalingua
@@ -245,6 +247,7 @@ for_window [window_role="app"]                      floating enable
 for_window [window_role="pop-up"]                   floating enable
 for_window [window_role="task_dialog"]              floating enable
 for_window [title="Preferences$"]                   floating enable
+for_window [class="Spotify"] move container to workspace $ws10
 
 # default workspaces for special windows
 assign [class="Google-chrome"] $ws2
@@ -252,7 +255,7 @@ assign [class="fluent-reader"] $ws2
 assign [class="TelegramDesktop"] $ws5
 assign [class="icalingua"] $ws5
 assign [class="Bytedance-feishu"] $ws5
-assign [class="Thunderbird"] $ws5
+#assign [class="Thunderbird"] $ws5
 assign [class="Code"] $ws4
 
 # Start i3bar to display a workspace bar (plus the system information i3status
