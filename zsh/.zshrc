@@ -1,26 +1,26 @@
 echo "X$-" | grep -vq i && return
 
-source $HOME/.grml_zshrc
+source "$HOME/.grml_zshrc"
 
 ### custom functions ###
 # du
 d() {
-  du -ah $1 | tail -n 1
+  du -ah "$1" | tail -n 1
 }
 
 # xdg-open many files
 oo() {
   (
   for item in $@; do
-    xdg-open ${item}
+    xdg-open "${item}"
   done
 )
 }
 
 wait_loop() {
-  local words=$1
-  local sec=$2
-  local cmd=$3
+  local words="$1"
+  local sec="$2"
+  local cmd="$3"
   echo -n "${words}."
   for i in $(seq 1 ${sec}); do
     sleep 1
