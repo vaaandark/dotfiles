@@ -19,15 +19,23 @@
 
 ### nvim
 
-使用的是轻量化的插件管理器`vim-plug`，而且我认为`vim`并不需要很优秀的补全方案，如果实在很依赖智能补全，完全可以使用`VS code`或者`IDE`搭配它们提供的`vim`插件，因此我安装插件的原则还是够用就行，尽量精简。
+使用的是轻量化的插件管理器`vim-plug`，~~而且我认为`vim`并不需要很优秀的补全方案，如果实在很依赖智能补全，完全可以使用`VS code`或者`IDE`搭配它们提供的`vim`插件，因此我安装插件的原则还是够用就行，尽量精简。~~
 
-我使用的插件：
+**补全框架真的香！**
+
+启动效果：
+
+![nvim效果图](./image/nvim-startup.png)
+
+---
+
+**我使用的插件：**
 
 | 插件功能 | 插件名 |
 | --- | -- |
 | 括号自动补全 | `jiangmiao/auto-pairs` |
 | 彩虹括号 | `luochen1990/rainbow` |
-| 显示最近编辑过的文件 | `mhinz/vim-startify` |
+| 为起始页提供更多功能 | `goolord/alpha-nvim` |
 | 更方便地使用内置终端 | `skywind3000/vim-terminal-help` |
 | 更方便地运行外部命令 | `skywind3000/asyncrun.vim` |
 | `markdown`预览插件 | `iamcco/markdown-preview.nvim` |
@@ -37,17 +45,44 @@
 | 括号编辑 | `tpope/vim-surround` |
 | 状态栏 | `nvim-lualine/lualine.nvim` |
 | 代码片段 | `hrsh7th/vim-vsnip` |
+| 查找、过滤、预览、选择 | `nvim-telescope/telescope.nvim` |
 
-提供的功能：
+**提供的功能：**
 
-- `F5`编译并运行（预览）`bash` `python` `c` `lisp` `tex` `asm` `rust`的代码文件
+- `<Leader>rn`编译并运行（预览）`bash` `python` `c` `lisp` `tex` `asm` `rust`的代码文件
 - `<Leader>m`预览`markdown`文件
+- `<Leader>ff`查找文件
+- `<Leader>fg`在工作路径下查找
+> 使用此功能需要`ripgrep`
+- `<Leader>fb`列出所有的缓冲区
+- `<Leader>fh`列出帮助
 
-代码补全：
+文件搜索效果：
+
+![文件搜索](./image/nvim-search.png)
+
+代码一键运行效果：
+![代码一键运行](./image/nvim-runcode.png)
+
+---
+
+**代码补全：**
 
 用到的插件有 `neovim/nvim-lspconfig` `hrsh7th/cmp-nvim-lsp` `hrsh7th/cmp-buffer` `hrsh7th/cmp-path` `hrsh7th/cmp-cmdline` `hrsh7th/nvim-cmp` `hrsh7th/cmp-vsnip` `hrsh7th/vim-vsnip` `neovim/nvim-lspconfig`
 
 支持 lua rust C / C++ python bash
+
+补全提示效果：
+
+![代码补全](./image/nvim-cmp.png)
+
+---
+
+**其他：**
+
+`:make` 会在当前目录下执行`./build.sh`，这只是我的个人习惯，可以删去`lua/basic.lua`中的`set.makeprg = './build.sh'`
+
+执行完`make`之后可以使用`copen`查看信息。
 
 ### ranger
 
