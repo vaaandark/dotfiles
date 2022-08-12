@@ -11,7 +11,8 @@ set.clipboard = 'unnamedplus'
 set.tabstop = 4
 set.shiftwidth = 4
 set.expandtab = true
+set.makeprg = './build.sh'
 
 set.syntax = 'on'
 set.colorcolumn = '80'
-
+vim.wo.signcolumn = 'yes'

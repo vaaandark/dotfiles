@@ -64,3 +64,18 @@
 [submodule "nvim/.config/nvim/plugged/lualine.nvim"]
 	path = nvim/.config/nvim/plugged/lualine.nvim
 	url = git@github.com:nvim-lualine/lualine.nvim.git
+[submodule "nvim/.config/nvim/plugged/dashboard-nvim"]
+	path = nvim/.config/nvim/plugged/dashboard-nvim
+	url = git@github.com:glepnir/dashboard-nvim.git
+[submodule "nvim/.config/nvim/plugged/alpha-nvim"]
+	path = nvim/.config/nvim/plugged/alpha-nvim
+	url = git@github.com:goolord/alpha-nvim.git
+[submodule "nvim/.config/nvim/plugged/telescope.nvim"]
+	path = nvim/.config/nvim/plugged/telescope.nvim
+	url = git@github.com:nvim-telescope/telescope.nvim.git
+[submodule "nvim/.config/nvim/plugged/plenary.nvim"]
+	path = nvim/.config/nvim/plugged/plenary.nvim
+	url = git@github.com:nvim-lua/plenary.nvim.git
+[submodule "nvim/.config/nvim/plugged/asyncrun"]
+	path = nvim/.config/nvim/plugged/asyncrun
+	url = git@github.com:skywind3000/asyncrun.vim.git
