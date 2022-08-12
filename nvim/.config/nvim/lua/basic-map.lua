@@ -16,9 +16,3 @@ api.nvim_set_keymap('c', '%%', "getcmdtype() == ':' ? expand('%:h').'/' : '%%'",
 api.nvim_set_keymap('n', 'n', 'nzz', { noremap = true, silent = true })
 api.nvim_set_keymap('n', 'N', 'Nzz', { noremap = true, silent = true })
 
--- F5 to run
-api.nvim_set_keymap('', '<F5>', ':lua RunCode() <CR>', { noremap = true })
-
--- NERDTree
-api.nvim_set_keymap('n', '<C-n>', ':NERDTree<CR>', { noremap = true })
-api.nvim_set_keymap('n', '<C-t>', ':NERDTreeToggle<CR>', { noremap = true })
