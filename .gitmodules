@@ -58,72 +58,18 @@
 [submodule "~/dotfiles/nvim/.config/nvim/plugged/vim-vsnip"]
 	path = ~/dotfiles/nvim/.config/nvim/plugged/vim-vsnip
 	url = git@github.com:hrsh7th/vim-vsnip.git
-[submodule "nvim/.config/nvim/plugged/nvim-web-devicons"]
-	path = nvim/.config/nvim/plugged/nvim-web-devicons
-	url = git@github.com:kyazdani42/nvim-web-devicons.git
-[submodule "nvim/.config/nvim/plugged/lualine.nvim"]
-	path = nvim/.config/nvim/plugged/lualine.nvim
-	url = git@github.com:nvim-lualine/lualine.nvim.git
 [submodule "nvim/.config/nvim/plugged/dashboard-nvim"]
 	path = nvim/.config/nvim/plugged/dashboard-nvim
 	url = git@github.com:glepnir/dashboard-nvim.git
-[submodule "nvim/.config/nvim/plugged/alpha-nvim"]
-	path = nvim/.config/nvim/plugged/alpha-nvim
-	url = git@github.com:goolord/alpha-nvim.git
-[submodule "nvim/.config/nvim/plugged/telescope.nvim"]
-	path = nvim/.config/nvim/plugged/telescope.nvim
-	url = git@github.com:nvim-telescope/telescope.nvim.git
-[submodule "nvim/.config/nvim/plugged/plenary.nvim"]
-	path = nvim/.config/nvim/plugged/plenary.nvim
-	url = git@github.com:nvim-lua/plenary.nvim.git
-[submodule "nvim/.config/nvim/plugged/asyncrun.vim"]
-	path = nvim/.config/nvim/plugged/asyncrun.vim
-	url = git@github.com:skywind3000/asyncrun.vim.git
-[submodule "nvim/.config/nvim/plugged/auto-pairs"]
-	path = nvim/.config/nvim/plugged/auto-pairs
-	url = git@github.com:jiangmiao/auto-pairs.git
-[submodule "nvim/.config/nvim/plugged/rainbow"]
-	path = nvim/.config/nvim/plugged/rainbow
-	url = git@github.com:luochen1990/rainbow.git
-[submodule "nvim/.config/nvim/plugged/markdown-preview.nvim"]
-	path = nvim/.config/nvim/plugged/markdown-preview.nvim
-	url = git@github.com:iamcco/markdown-preview.nvim.git
-[submodule "nvim/.config/nvim/plugged/vim-terminal-help"]
-	path = nvim/.config/nvim/plugged/vim-terminal-help
-	url = git@github.com:skywind3000/vim-terminal-help.git
-[submodule "nvim/.config/nvim/plugged/gruvbox"]
-	path = nvim/.config/nvim/plugged/gruvbox
-	url = git@github.com:morhetz/gruvbox.git
-[submodule "nvim/.config/nvim/plugged/suda.vim"]
-	path = nvim/.config/nvim/plugged/suda.vim
-	url = git@github.com:lambdalisue/suda.vim.git
-[submodule "nvim/.config/nvim/plugged/indentLine"]
-	path = nvim/.config/nvim/plugged/indentLine
-	url = git@github.com:Yggdroot/indentLine.git
-[submodule "nvim/.config/nvim/plugged/vim-surround"]
-	path = nvim/.config/nvim/plugged/vim-surround
-	url = git@github.com:tpope/vim-surround.git
-[submodule "nvim/.config/nvim/plugged/nvim-lspconfig"]
-	path = nvim/.config/nvim/plugged/nvim-lspconfig
-	url = git@github.com:neovim/nvim-lspconfig.git
-[submodule "nvim/.config/nvim/plugged/cmp-nvim-lsp"]
-	path = nvim/.config/nvim/plugged/cmp-nvim-lsp
-	url = git@github.com:hrsh7th/cmp-nvim-lsp.git
-[submodule "nvim/.config/nvim/plugged/cmp-buffer"]
-	path = nvim/.config/nvim/plugged/cmp-buffer
-	url = git@github.com:hrsh7th/cmp-buffer.git
-[submodule "nvim/.config/nvim/plugged/cmp-path"]
-	path = nvim/.config/nvim/plugged/cmp-path
-	url = git@github.com:hrsh7th/cmp-path.git
-[submodule "nvim/.config/nvim/plugged/cmp-cmdline"]
-	path = nvim/.config/nvim/plugged/cmp-cmdline
-	url = git@github.com:hrsh7th/cmp-cmdline.git
-[submodule "nvim/.config/nvim/plugged/nvim-cmp"]
-	path = nvim/.config/nvim/plugged/nvim-cmp
-	url = git@github.com:hrsh7th/nvim-cmp.git
-[submodule "nvim/.config/nvim/plugged/cmp-vsnip"]
-	path = nvim/.config/nvim/plugged/cmp-vsnip
-	url = git@github.com:hrsh7th/cmp-vsnip.git
-[submodule "nvim/.config/nvim/plugged/vim-vsnip"]
-	path = nvim/.config/nvim/plugged/vim-vsnip
-	url = git@github.com:hrsh7th/vim-vsnip.git
+[submodule "zsh/.zsh/fzf-tab"]
+	path = zsh/.zsh/fzf-tab
+	url = git@github.com:Aloxaf/fzf-tab.git
+[submodule "zsh/.zsh/zsh-autosuggestions"]
+	path = zsh/.zsh/zsh-autosuggestions
+	url = git@github.com:zsh-users/zsh-autosuggestions.git
+[submodule "zsh/.zsh/zsh-completions"]
+	path = zsh/.zsh/zsh-completions
+	url = git@github.com:zsh-users/zsh-completions.git
+[submodule "zsh/.zsh/zsh-syntax-highlighting"]
+	path = zsh/.zsh/zsh-syntax-highlighting
+	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
