@@ -1,12 +1,16 @@
+[TITLE]
+command=xdotool getwindowname "$(xdotool getwindowfocus -f)"
+interval=1
+
 [wifi]
 command=echo "WIFI $(nmcli d w s | head -n 1 | cut -d ' ' -f2-)"
 interval=5
 color=#91E78B
 
 [ip]
-command=hostname -i | awk '{ print "IP "$NF" " }'
+command=hostname -i | awk '{ print ""$NF"" }'
 interval=5
-color=#91E78B
+color=#FEC925
 
 [BATTERY]
 command=~/.config/i3blocks/battery/battery_info.sh
@@ -19,7 +23,7 @@ interval=1
 color=#00B4EB
 
 [MEM]
-command=free -h | awk '/Mem:/ { printf("%5s/%s \n", $3, $2) }'
+command=free -h | awk '/Mem:/ { printf("%5s\n", $3) }'
 interval=1
 color=#FEC925
 
@@ -36,7 +40,7 @@ interval=10
 color=#E5201D
 
 [TIME_DATE]
-command=date +"%D %a %H:%M:%S"
+command=date +"%m/%d %H:%M"
 interval=1
 
 [AUTO_BACKLIGHT]
