@@ -1,5 +1,5 @@
 [TITLE]
-command=xdotool getwindowname "$(xdotool getwindowfocus -f)"
+command=~/.config/i3blocks/title/title.sh
 interval=1
 
 [wifi]
