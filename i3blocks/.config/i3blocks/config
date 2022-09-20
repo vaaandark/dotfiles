@@ -31,7 +31,7 @@ color=#FEC925
 full_text= 0% 
 command=~/.config/i3blocks/sound/sound_info.sh
 interval=1
-signal=1
+signal=10
 color=#0EF17F
 
 [TASK]
