@@ -6,10 +6,10 @@ target="$HOME/.backup"
 # src
 blog="$HOME/Documents/blog"
 fcitx5="$HOME/.local/share/fcitx5"
-coding_homework="$HOME/Documents/CodingHomework"
+coding_homework="/home/vandark/Documents/SchoolCodeWork"
 scripts="$HOME/src/dev/scripts"
 
-items=('Blog' 'fcitx5' 'CodingHomework' 'Scripts')
+items=('Blog' 'fcitx5' 'SchoolCodeWork' 'Scripts')
 sources=("${blog}" "${fcitx5}" "${coding_homework}" "${scripts}")
 
 date_info=$(date '+%D' | tr / -)
