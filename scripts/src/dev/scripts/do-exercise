@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#set -xv
+
+if [[ -z "$1" ]]; then
+  echo "do-exercise: no input files"
+  exit 1
+fi
+
+filename="$1"
+extension="${filename##*.}"
+if [[ "$extension" = 'c' ]]; then
+  name=$(basename "$filename" .c)
+  gcc -Wall -Werror -Wshadow -g -fsanitize=address -O0 "$filename" -o /tmp/"$name"-$$ || exit 1
+  /tmp/"$name"-$$ < ./"$name".in > ./"$name".out
+  ret=$?
+  rm /tmp/"$name"-$$
+fi
+exit $ret

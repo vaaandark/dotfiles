@@ -1,2 +1,3 @@
 #!/bin/sh
 feh --bg-fill "$HOME/Pictures/Wallpapers/paper_plane.jpg"
+#feh --bg-fill "/usr/share/backgrounds/default.png"

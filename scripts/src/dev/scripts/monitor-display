@@ -1,24 +1,62 @@
-#!/bin/sh
+#!/bin/bash
+
+set -xv
+
 laptop_monitor() {
-  xrandr --output HDMI-A-0 --off --output eDP --mode 2240x1400 --rate 60.02 --pos 0x0 --rotate normal --output DisplayPort-0 --off --output DisplayPort-1 --off
+  xrandr \
+    --output HDMI-A-0 --off \
+    --output eDP --mode 2240x1400 --rate 60.02 --pos 0x0 --rotate normal \
+    --output DisplayPort-0 --off --output DisplayPort-1 --off
 }
 
 external_monitor() {
-  xrandr --output eDP --off --output HDMI-A-0 --mode 3440x1440 --rate 99.99 --pos 0x0 --rotate normal --output DisplayPort-0 --off --output DisplayPort-1 --off
+  port="$1"
+  mode="$2"
+  rate="$3"
+  if [[ -z "$mode" ]]; then
+    mode=$(xrandr | awk "/$port connected/{ getline a; print a }" | grep -o '[0-9]*x[0-9]*')
+  fi
+  if [[ -z "$rate" ]]; then
+    rate='60.00'
+  fi
+  if [[ "$port" = 'DisplayPort-0' ]]; then
+    xrandr \
+      --output eDP --off \
+      --output DisplayPort-0 --mode "$mode" --rate "$rate" --pos 0x0 --rotate normal \
+      --output HDMI-A-0 --off \
+      --output DisplayPort-1 --off
+  elif [[ "$port" = 'HDMI-A-0' ]]; then
+    xrandr \
+      --output eDP --off \
+      --output HDMI-A-0 --mode "$mode" --rate "$rate" --pos 0x0 --rotate normal \
+      --output DisplayPort-0 --off \
+      --output DisplayPort-1 --off
+  fi
 }
 
 display() {
   lock='/tmp/display.lock'
-  if [ -f $lock ]; then
+  if [[ -f $lock || $# -eq 0 ]]; then
     laptop_monitor || exit 1
-    rm $lock
+    [[ -f $lock ]] && rm $lock
   else
-    external_monitor || exit 1
+    external_monitor "$1" "$2" "$3" || exit 1
     touch $lock
   fi
 }
 
-if [[ -n $(xrandr | grep HDMI-A-0) ]]; then
-  display
+if [[ $1 = '-h' ]]; then
+  echo 'usage: monitor-display [{mode} [{rate}]]'
+  echo '    mode can be 2240x1400 ...'
+  echo '    rate can be 99.99, 60.00...'
+  exit 1
+fi
+
+if xrandr | grep -q 'HDMI-A-0 connected'; then
+  display 'HDMI-A-0' "$1" "$2"
   "$HOME/.local/bin/set_wallpapers"
+elif xrandr | grep -q 'DisplayPort-0 connected'; then
+  display 'DisplayPort-0' "$1" "$2"
+else
+  display
 fi
