@@ -3,6 +3,11 @@ echo "X$-" | grep -vq i && return
 source "$HOME/.grml_zshrc"
 
 ### custom functions ###
+# grep
+g() {
+  grep "$@" -r ./*
+}
+
 # du
 d() {
   du -ah "$1" | tail -n 1
@@ -39,19 +44,6 @@ wait_loop() {
   echo ''
   echo 'failed'
   return 1
-}
-
-# connect a known SSID
-nmc() {
-  nmcli device wifi rescan
-  local cmd=$(grep "nmcli d w c" ${HISTFILE} | cut -d ';' -f2 | grep "$1" | head -n 1)
-  local ssid=$(echo ${cmd} | cut -d ' ' -f5- | rev | grep -oP '(?<=drowssap )[^*]*' | rev)
-  if [[ -z ${ssid} ]]; then
-    ssid=$(echo ${cmd} | cut -d ' ' -f5-)
-  fi
-  echo "SSID: ${ssid}"
-  echo "password: ********"
-  wait_loop 'trying to connect now' 15 "${cmd}"
 }
 
 # connect a new SSID
@@ -117,7 +109,7 @@ ${time_info}"
 
 add-zsh-hook precmd _finish_check
 
-# starm ls
+# smart ls
 last_ls=$(command ls | base32)
 last_pwd="$PWD"
 _starm_ls() {
@@ -149,8 +141,31 @@ gcl() {
   fi
 }
 
+masm() {
+  if [[ "$(pwd)" != "$HOME/src/labs/dos-asm" && \
+    "$(pwd)" != "$HOME/labs/dos-asm" ]]; then
+    return 1
+  fi
+
+  local src="$1"
+  cp "$src" masm/
+  local base="$(basename "$src" .asm)"
+  dosbox \
+    -c 'mount c ~/src/labs/dos-asm/masm' \
+    -c 'c:' \
+    -c "masm $base.asm" \
+    -c "link $base.obj" \
+    -c "cls" \
+    -c ".\\$base.exe" \
+    -c 'pause' \
+    -c "del $base.asm" \
+    -c "del $base.obj" \
+    -c "del $base.exe" \
+    -c 'exit' 2>/dev/null
+}
+
 ### customize the grml-zsh-config ###
-zstyle ':prompt:grml:left:setup' items rc change-root path host time vcs newline percent
+zstyle ':prompt:grml:left:setup' items rc change-root time host path vcs newline percent
 autoload -U colors && colors
   zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:*' check-for-changes true
@@ -203,6 +218,13 @@ alias l='ls'
 alias c='clear'
 alias s='setxkbmap -option ctrl:swapcaps'
 
+# rmall - a self-made dictionary
+alias rl='rmall'
+
+# weather
+alias weather='curl v2.wttr.in/wuhan'
+alias wea='curl "wttr.in/shenzhen?format=%C+%t+%p\n"'
+
 # nvim no plugins
 alias vi='nvim --noplugin'
 
@@ -213,10 +235,12 @@ alias nmr='nmcli d w r'
 alias gst='git status'
 alias gck='git checkout'
 alias grm='git rm'
+alias gmv='git mv'
 alias gcm='git commit'
 alias gps='git push'
 alias gpl='git pull'
 alias gfc='git fetch'
+alias glg='git log'
 
 # cd tricks
 alias ...='../..'
