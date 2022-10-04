@@ -12,6 +12,7 @@ set.tabstop = 4
 set.shiftwidth = 4
 set.expandtab = true
 set.makeprg = './build.sh'
+set.scrolloff=3
 
 set.syntax = 'on'
 set.colorcolumn = '80'
