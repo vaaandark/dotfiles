@@ -12,11 +12,10 @@
 set $mod Mod4
 
 # scripts directory
-set $scripts_dir ~/src/dev/scripts
+set $scripts_dir ~/src/dev/scripts/
 
 default_border pixel 1
 default_floating_border pixel 1
-for_window [all] border pixel 1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
