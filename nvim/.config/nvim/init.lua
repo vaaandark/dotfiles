@@ -15,5 +15,6 @@ require('plugins/nvim-cmp')
 require('plugins/lualine')
 require('plugins/gitsigns')
 require('plugins/nvim-treesitter')
+require('plugins/vimtex')
 
 vim.cmd([[colorscheme gruvbox-material]])
