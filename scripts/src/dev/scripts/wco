@@ -1,0 +1,100 @@
+#!/bin/bash
+# When Will the Class be Over?
+# `wco`
+# check how long until the class is over
+# `wco {TIME}`  
+# give time and check how long until the class is over
+
+trim_zero() {
+  echo "$1" | sed 's/^0*//'
+}
+
+min2time() {
+  local begin="$1"
+  local begin_hour="${begin%:*}"
+  begin_hour="$(trim_zero "$begin_hour")"
+  local begin_min="${begin#*:}"
+  begin_min="$(trim_zero "$begin_min")"
+
+  local now="$2"
+
+  local min=$(((begin_min + now) % 60))
+  local hour=$((begin_hour + (begin_min + now) / 60))
+  printf "%d:%02d" "$hour" "$min"
+}
+
+time2min() {
+  local begin="$1"
+  local begin_hour="${begin%:*}"
+  begin_hour="$(trim_zero "$begin_hour")"
+
+  local begin_min="${begin#*:}"
+  begin_min="$(trim_zero "$begin_min")"
+
+  local now="$2"
+  local now_hour="${now%:*}"
+  now_hour="$(trim_zero "$now_hour")"
+  local now_min="${now#*:}"
+  now_min="$(trim_zero "$now_min")"
+
+  local delta_time=$(((now_min - begin_min) + (now_hour - begin_hour) * 60))
+  echo "$delta_time"
+}
+
+cal() {
+  local now
+  if [[ "$#" -gt 0 ]]; then
+    now="$1"
+  else
+    now="$(date +%H:%M)"
+  fi
+
+  local begin class_begin begin month which_half time
+  local now_hour="${now%:*}"
+  now_hour="$(trim_zero "$now_hour")"
+
+  if [[ "$now_hour" -lt 12 ]]; then
+    begin='8:00'
+    class_begin=(0 55 130 185 240)
+    which_half="AM"
+  else
+    # daylight saving time
+    month="$(date +%m)"
+    if [[ "$month" -gt 6 && "$month" -lt 10 ]]; then
+      begin='14:30'
+    else
+      begin='14:00'
+    fi
+    class_begin=(0 50 115 165 270 320 375 425 490)
+    which_half="PM"
+  fi
+  time="$(time2min "$begin" "$now")"
+
+  for i in $(seq 0 "${#class_begin[*]}"); do
+    if [[ $time -ge ${class_begin[$i]} &&
+      $time -lt ${class_begin[$i + 1]} ]]; then
+      local left=$((class_begin[i] + 45 - time))
+
+      local class_index=$((i + 1))
+      if [[ "$which_half" = "PM" ]]; then
+        ((class_index += 4))
+      fi
+
+      if [[ "$left" -lt 0 ]]; then
+        printf "%s class %d is over. " "$which_half" "$class_index"
+        printf "Time for break now!\n"
+        break
+      fi
+      printf "%s class %d, " "$which_half" "$class_index"
+      printf "begins at %s, " "$(min2time "$begin" "${class_begin[i]}")"
+      printf "%d minutes left\n" "$left"
+      break
+    fi
+  done
+}
+
+if [[ "$#" -gt 0 ]]; then
+  cal "$1"
+else
+  cal
+fi
