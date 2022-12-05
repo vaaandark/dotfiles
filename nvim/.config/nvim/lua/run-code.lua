@@ -2,11 +2,11 @@ function RunCode()
   filetype = vim.o.filetype
   if (filetype == 'c') then
     vim.cmd([[
-      :AsyncRun name=$(basename % .c); cc % -o /tmp/"$name"-$$ || exit 1; /tmp/"$name"-$$ "$@"; ret=$?; rm /tmp/"$name"-$$; exit $ret
+      :AsyncRun name=$(basename % .c); clang -std=c99 -Wall -Wshadow -g -fsanitize=address -O0 % -o /tmp/"$name"-$$ || exit 1; /tmp/"$name"-$$ "$@"; ret=$?; rm /tmp/"$name"-$$; exit $ret
     ]])
   elseif (filetype == 'cpp') then
     vim.cmd([[
-      :AsyncRun name=$(basename % .cpp); xx % -o /tmp/"$name"-$$ || exit 1; /tmp/"$name"-$$ "$@"; ret=$?; rm /tmp/"$name"-$$; exit $ret
+      :AsyncRun name=$(basename % .cpp); clang++ -std=c++2a -Wall -Wshadow -g -fsanitize=address -O0 % -o /tmp/"$name"-$$ || exit 1; /tmp/"$name"-$$ "$@"; ret=$?; rm /tmp/"$name"-$$; exit $ret
     ]])
   elseif (filetype == 'asm') then
     vim.cmd([[
