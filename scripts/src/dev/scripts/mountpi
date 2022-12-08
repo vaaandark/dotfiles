@@ -1,2 +1,2 @@
 #!/bin/bash
-sshfs -o reconnect,auto_cache,follow_symlinks,idmap=user pi:/home/vandark/.fs ~/src/data/pi
+sshfs -o reconnect,auto_cache,follow_symlinks,idmap=user pi:/home/vandark/.fs ~/src/media/pi
