@@ -37,12 +37,11 @@ for_window [all] title_window_icon off
 # screen before suspend. Use loginctl lock-session to lock your screen.
 #exec --no-startup-id export GDK_DPI_SCALE=1.5 && birdtray
 exec --no-startup-id xss-lock --transfer-sleep-lock -- $scripts_dir/i3exit suspend --nofork
-exec --no-startup-id pkill clash
-exec --no-startup-id sleep 1; clash
-exec --no-startup-id setxkbmap -option ctrl:swapcaps
 exec --no-startup-id fcitx5
 exec --no-startup-id $scripts_dir/battery-check
 exec --no-startup-id $scripts_dir/set_wallpapers
+exec --no-startup-id /opt/ClashForWindows/cfw
+exec --no-startup-id setxkbmap -option ctrl:swapcaps
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -53,21 +52,21 @@ bindsym $mod+d exec rofi -show drun -font "Source Code Pro 20" -theme "/usr/shar
 bindsym $mod+q exec rofi -show run -font "Source Code Pro 20" -theme "/usr/share/rofi/themes/Arc-Dark.rasi" -show-icons
 
 # run app
-bindsym $mod+Ctrl+g exec google-chrome
-bindsym $mod+Ctrl+m exec export GDK_DPI_SCALE=1.5 && birdtray
-bindsym $mod+Ctrl+x exec export GDK_DPI_SCALE=1.5 && firefox
+#bindsym $mod+Ctrl+g exec google-chrome
+#bindsym $mod+Ctrl+m exec export GDK_DPI_SCALE=1.5 && birdtray
+bindsym $mod+Ctrl+b exec export GDK_DPI_SCALE=1.5 && firefox
 bindsym $mod+Ctrl+j exec /opt/joplin.AppImage --no-sandbox
-bindsym $mod+Ctrl+t exec export QT_IM_MODULE=fcitx && /opt/Telegram/Telegram
+bindsym $mod+Ctrl+t exec /opt/Telegram/Telegram
+bindsym $mod+Ctrl+s exec /opt/session.AppImage
 bindsym $mod+Ctrl+q exec /opt/Icalingua++/icalingua
 bindsym $mod+Ctrl+e exec pcmanfm
 bindsym $mod+Ctrl+c exec code
 bindsym $mod+Ctrl+o exec libreoffice
+bindsym $mod+Ctrl+k exec okular
 bindsym $mod+Ctrl+f exec bytedance-feishu --force-device-scale-factor=1.5 %U
-bindsym $mod+Ctrl+r exec ~/.local/bin/fluent-reader --force-device-scale-factor=1.5 %U
-bindsym $mod+Ctrl+b exec virtualbox
 bindsym $mod+Ctrl+l exec rm /tmp/auto_backlight.lock /tmp/auto_backlight.log
 bindsym Print exec flameshot gui
-bindsym $mod+Ctrl+s exec $scripts_dir/window-shot
+bindsym Ctrl+Print exec $scripts_dir/window-shot
 
 # display
 bindsym $mod+p exec $scripts_dir/monitor-display && sleep 1 && $scripts_dir/set_wallpapers
@@ -243,7 +242,7 @@ mode "$mode_system" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Delete mode "$mode_system"
+bindsym $mod+BackSpace mode "$mode_system"
 
 # set specific windows to floating mode
 for_window [window_role="app"]                      floating enable
@@ -253,9 +252,10 @@ for_window [title="Preferences$"]                   floating enable
 for_window [class="Spotify"] move container to workspace $ws10
 
 # default workspaces for special windows
-assign [class="Google-chrome"] $ws2
-assign [class="fluent-reader"] $ws2
+assign [class="firefox"] $ws2
+#assign [class="Google-chrome"] $ws2
 assign [class="TelegramDesktop"] $ws5
+assign [class="Session"] $ws5
 assign [class="icalingua"] $ws5
 assign [class="Bytedance-feishu"] $ws5
 #assign [class="Thunderbird"] $ws5
@@ -265,12 +265,12 @@ assign [class="Code"] $ws4
 # finds out, if available)
 bar {
 #    mode hide
-    position top
+    position bottom
     status_command i3blocks
 
     font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
-    font pango:Source Code Pro Medium 16
+    font pango:Source Code Pro Medium 14
 
     colors {
         background #232D37
