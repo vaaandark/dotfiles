@@ -56,6 +56,7 @@
 > 使用此功能需要`ripgrep`
 - `<Leader>fb`列出所有的缓冲区
 - `<Leader>fh`列出帮助
+- `<Leader>t`打开或关闭错误提示
 
 文件搜索效果：
 
@@ -68,7 +69,7 @@
 
 **代码补全：**
 
-用到的插件有 `neovim/nvim-lspconfig` `hrsh7th/cmp-nvim-lsp` `hrsh7th/cmp-buffer` `hrsh7th/cmp-path` `hrsh7th/cmp-cmdline` `hrsh7th/nvim-cmp` `hrsh7th/cmp-vsnip` `hrsh7th/vim-vsnip` `neovim/nvim-lspconfig`
+用到的插件有 `neovim/nvim-lspconfig` `hrsh7th/cmp-nvim-lsp` `hrsh7th/cmp-buffer` `hrsh7th/cmp-path` `hrsh7th/cmp-cmdline` `hrsh7th/nvim-cmp` `hrsh7th/cmp-vsnip` `hrsh7th/vim-vsnip` `neovim/nvim-lspconfig` `simrat39/rust-tools`
 
 支持 lua rust C / C++ python bash
 
@@ -121,6 +122,7 @@ wget -O .zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
 | 像`fish`一样高亮 | `zsh-syntax-highlighting.zsh` |
 | 在敲命令时实时提示 | `zsh-autosuggestions.zsh` |
 | 提供更强大的补全 | `zsh-completions.plugin.zsh` |
+| `C-r`搜索历史记录时使用`fzf` | `zsh-fzf-history-search` |
 
 ### 40-libinput.conf
 
