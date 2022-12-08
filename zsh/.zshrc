@@ -2,7 +2,27 @@ echo "X$-" | grep -vq i && return
 
 source "$HOME/.grml_zshrc"
 
+# avoid url being misunderstood
+autoload -U url-quote-magic
+zle -N self-insert url-quote-magic
+
 ### custom functions ###
+# fedora paste
+fp() {
+  if [[ -n "$1" && -f "$1" ]]; then
+    cat "$1" | fpaste -t "$(basename $1)"
+  else
+    fpaste
+  fi
+}
+
+# show time table
+tt() {
+  for i in ~/.time_table/*; do
+    cat "$i" || continue
+  done
+}
+
 # grep
 g() {
   grep "$@" -r ./*
@@ -10,54 +30,14 @@ g() {
 
 # du
 d() {
-  du -ah "$1" | tail -n 1
+  du -sh "$1"
 }
 
 # xdg-open many files
-oo() {
-  (
+o() {
   for item in $@; do
-    xdg-open "${item}"
+    xdg-open "$item" &
   done
-)
-}
-
-wait_loop() {
-  local words="$1"
-  local sec="$2"
-  local cmd="$3"
-  echo -n "${words}."
-  for i in $(seq 1 ${sec}); do
-    sleep 1
-    if [[ $((${i} % 6)) -lt 3 ]]; then
-      echo -n '.'
-    else
-      echo -en "\b \b"
-    fi
-    eval "${cmd}" > /dev/null 2>&1
-    if [[ $? == 0 ]]; then
-      echo ''
-      echo 'succeeded'
-      return 0
-    fi
-  done
-  echo ''
-  echo 'failed'
-  return 1
-}
-
-# connect a new SSID
-nmn() {
-  echo -n 'SSID: '
-  read ssid
-  echo -n 'password: '
-  read -s passwd
-  echo ''
-  nmcli device wifi rescan
-  local cmd="nmcli d w c $(printf '%q' "${ssid}") password ${passwd}"
-  wait_loop 'trying to connect now' 15 "${cmd}"
-  ret=$?
-  echo ": $(date +%s):${ret};${cmd}" >> ${HISTFILE}
 }
 
 # ranger
@@ -69,14 +49,18 @@ ra() {
   fi
 }
 
-# search history
-hgrep() {
-  if [ -z $@ ]; then
-    echo 'please input your arguments' >&2
-    return 1
-  fi
-  for str in $@; do
-    grep ${str} ${HISTFILE} | awk -F ';' '{ print $2 }'
+mntu() {
+  udisksctl mount --block-device "$@" || return 1
+  echo "ln -sf /run/media/$(whoami)/* $HOME/src/media/"
+  ln -sf /run/media/$(whoami)/* ~/src/media/
+}
+
+umntu() {
+  udisksctl unmount --block-device "$@" || return 1
+  for i in ~/src/media/*; do
+    if [[ ! -e "$i" ]]; then
+      rm "$i"
+    fi
   done
 }
 
@@ -131,6 +115,11 @@ fm() {
   fd -t f | parallel -j+1 file --mime-type | command grep --color=no "${mime}" | cut -d ':' -f1
 }
 
+# md2pdf
+md2pdf() {
+  pandoc --pdf-engine=xelatex -V CJKmainfont="WenQuanYi Zen Hei" "$@"
+}
+
 # git clone
 # defaultly, read url from clipboard
 gcl() {
@@ -142,13 +131,8 @@ gcl() {
 }
 
 masm() {
-  if [[ "$(pwd)" != "$HOME/src/labs/dos-asm" && \
-    "$(pwd)" != "$HOME/labs/dos-asm" ]]; then
-    return 1
-  fi
-
   local src="$1"
-  cp "$src" masm/
+  cp "$src" ~/src/labs/dos-asm/masm/ || return 1
   local base="$(basename "$src" .asm)"
   dosbox \
     -c 'mount c ~/src/labs/dos-asm/masm' \
@@ -165,7 +149,7 @@ masm() {
 }
 
 ### customize the grml-zsh-config ###
-zstyle ':prompt:grml:left:setup' items rc change-root time host path vcs newline percent
+zstyle ':prompt:grml:left:setup' items rc change-root time host path vcs newline jobs
 autoload -U colors && colors
   zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:*' check-for-changes true
@@ -173,9 +157,10 @@ autoload -U colors && colors
   zstyle ':vcs_info:*' stagedstr '+'
   zstyle ':vcs_info:git*' formats "%{${fg[cyan]}%}[%{${fg[blue]}%}%b%{${fg[yellow]}%}%m%u%c%{${fg[cyan]}%}]%{$reset_color%}"
 
-zstyle ':prompt:grml:right:setup' items sad-smiley battery
+zstyle ':prompt:grml:right:setup' items sad-smiley
 
 ### plugins ###
+source ~/.zsh/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh
 source ~/.zsh/fzf-tab/fzf-tab.plugin.zsh
 
 # disable sort when completing `git checkout`
@@ -196,10 +181,7 @@ fi
 source "$HOME/.zsh/zsh-completions/zsh-completions.plugin.zsh"
 
 ### paths ###
-export PATH="$PATH:$HOME/.local/bin/"
-export PATH="$PATH:$HOME/.local/bin/openresty-systemtap-toolkit/"
-export PATH="$PATH:$HOME/.local/bin/FlameGraph/"
-export PATH="$PATH:$HOME/.arduino15/"
+export PATH="$HOME/.local/bin:$PATH"
 
 ### default editor ###
 export EDITOR=nvim
@@ -207,16 +189,27 @@ export EDITOR=nvim
 ### proxychains4 ###
 alias pc="proxychains4 -q -f $HOME/.proxychains.conf"
 
+# safety
+alias mv='mv -i'
+
 ### aliases ###
 # single character aliases
-alias x='startx'
 alias t='tmux'
-alias o='xdg-open'
 alias v='nvim'
 alias h='hx'
 alias l='ls'
 alias c='clear'
 alias s='setxkbmap -option ctrl:swapcaps'
+alias e='emacs -nw -Q'
+alias n='neofetch'
+
+alias unkeymap='setxkbmap -option'
+
+# qrcp
+alias qr='qrcp --port 8888 --path vd --zip'
+
+# disassembly
+alias objdump='objdump --disassembler-options=intel'
 
 # rmall - a self-made dictionary
 alias rl='rmall'
@@ -267,16 +260,17 @@ alias rmk='make clean && make'
 # compile flags
 alias cc='gcc -Wall -Werror -Wshadow -g -fsanitize=address -O0'
 alias xx='g++ -Wall -Werror -Wshadow -g -fsanitize=address -O0'
+alias clx='clang++ -std=c++2a -Wall -Werror -Wshadow -g -fsanitize=address -O0'
+alias c2asm='gcc -fomit-frame-pointer -fverbose-asm -O0 -masm=intel -S'
 
 # dnf
-alias pd="sudo dnf -c $HOME/.dnf.conf"
 alias din='sudo dnf install'
 alias drm='sudo dnf remove'
 alias dup='sudo dnf update'
 alias dsc='sudo dnf search'
 
 # be quiet
-alias bc='bc -q'
+alias bc='bc -lq'
 alias gdb='gdb -q'
 alias clisp='clisp -q'
 
@@ -291,6 +285,17 @@ alias ssh='TERM=xterm ssh'
 
 # md
 alias mkd='mkdir'
+
+# run asm
+asmc() {
+  local base="$(basename "$1" .asm)"
+  nasm -f elf32 "$base.asm"
+  gcc -m32 "$base.o" -o "$base"
+  "./$base"
+  local ret="$?"
+  rm "$base" "$base.o"
+  return ret
+}
 
 # trans
 trans() {
@@ -313,23 +318,7 @@ md() {
 
 eval "$(lua "$HOME/src/tools/z.lua/z.lua"  --init zsh once enhanced)"
 
-## setup scripts ###
-#if [ ! -f /tmp/auto_backlight.lock ]; then
-#  nohup set_backlight > /dev/null 2>&1 &
-#fi
-
 ### consolefonts setting ###
 if [ $TERM = linux ]; then
   setfont /usr/share/consolefonts/Insonsolata/Inconsolata-32b.psf
 fi
-
-# perl
-if command -v perl > /dev/null; then
-  eval "$(perl -Mlocal::lib="$HOME"/.local)"
-fi
-
-#if [ $SHLVL -eq 1 ]; then
-#  echo 'Login i3wm?'
-#  read choice
-#  [ -z "$choice" ] && startx
-#fi
