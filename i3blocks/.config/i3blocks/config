@@ -3,7 +3,7 @@ command=~/.config/i3blocks/title/title.sh
 interval=1
 
 [wifi]
-command=echo "WIFI $(nmcli d w s | head -n 1 | cut -d ' ' -f2-)"
+command=echo "WIFI $(nmcli d w s | head -n 1 | cut -d ' ' -f2-)" | tail -n 1 | tr '[:lower:]' '[:upper:]'
 interval=5
 color=#91E78B
 
