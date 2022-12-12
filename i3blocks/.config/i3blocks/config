@@ -45,7 +45,7 @@ interval=1
 
 [AUTO_BACKLIGHT]
 command=~/.local/bin/set_backlight
-interval=1
+interval=persist
 
 [BATTERY_CHECK]
 command=~/.local/bin/battery-check
