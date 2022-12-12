@@ -153,16 +153,16 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1    "一"
-set $ws2    "二"
-set $ws3    "三"
-set $ws4    "四"
-set $ws5    "五"
-set $ws6    "六"
-set $ws7    "七"
-set $ws8    "八"
-set $ws9    "九"
-set $ws10   "十"
+set $ws1    "1:一"
+set $ws2    "2:二"
+set $ws3    "3:三"
+set $ws4    "4:四"
+set $ws5    "5:五"
+set $ws6    "6:六"
+set $ws7    "7:七"
+set $ws8    "8:八"
+set $ws9    "9:九"
+set $ws10   "10:十"
 
 # workspace back and forth
 workspace_auto_back_and_forth yes
@@ -266,6 +266,7 @@ assign [class="Code"] $ws4
 # finds out, if available)
 bar {
 #    mode hide
+    strip_workspace_numbers yes
     position bottom
     status_command i3blocks
 
