@@ -11,6 +11,10 @@
 
 set $mod Mod4
 
+# gaps
+gaps inner 8
+gaps outer 5
+
 # scripts directory
 set $scripts_dir ~/src/dev/scripts
 
@@ -55,10 +59,9 @@ bindsym $mod+q exec rofi -show run -font "Source Code Pro 20" -theme "/usr/share
 #bindsym $mod+Ctrl+g exec google-chrome
 #bindsym $mod+Ctrl+m exec export GDK_DPI_SCALE=1.5 && birdtray
 bindsym $mod+Ctrl+b exec export GDK_DPI_SCALE=1.5 && firefox
-bindsym $mod+Ctrl+j exec /opt/joplin.AppImage --no-sandbox
 bindsym $mod+Ctrl+t exec /opt/Telegram/Telegram
 bindsym $mod+Ctrl+s exec /opt/session.AppImage
-bindsym $mod+Ctrl+q exec /opt/Icalingua++/icalingua
+bindsym $mod+Ctrl+q exec /opt/Icalingua++/icalingua --no-sandbox
 bindsym $mod+Ctrl+e exec pcmanfm
 bindsym $mod+Ctrl+c exec code
 bindsym $mod+Ctrl+o exec libreoffice
