@@ -83,7 +83,7 @@ ${time_info}"
   if [[ -n "$DISPLAY" ]]; then
     local active_window=$(xdotool getactivewindow 2> /dev/null)
     if [[ -n "${cmd_active_window}" && "${active_window}" != "$cmd_active_window" ]]; then
-      notify-send -i '/usr/share/icons/Numix-Circle/48/apps/Terminal.svg' DONE "${msg}"
+      notify-send -u normal DONE "${msg}"
     fi
   fi
   [[ ${delta_time} -lt 10 ]] && return
