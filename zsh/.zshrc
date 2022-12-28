@@ -7,6 +7,12 @@ autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
 
 ### custom functions ###
+
+# glow to render markdown doc
+mdless() {
+  glow -w $(($(tput cols) / 10 * 10)) -s dark "$1" | less -r
+}
+
 # fedora paste
 fp() {
   if [[ -n "$1" && -f "$1" ]]; then
@@ -36,7 +42,7 @@ d() {
 # xdg-open many files
 o() {
   for item in $@; do
-    xdg-open "$item" &
+    xdg-open "$item" & disown
   done
 }
 
@@ -186,6 +192,9 @@ export PATH="$HOME/.local/bin:$PATH"
 ### default editor ###
 export EDITOR=nvim
 
+### pdf viewer
+alias za=zathura
+
 ### proxychains4 ###
 alias pc="proxychains4 -q -f $HOME/.proxychains.conf"
 
@@ -204,6 +213,9 @@ alias e='emacs -nw -Q'
 alias n='neofetch'
 
 alias unkeymap='setxkbmap -option'
+
+# lf
+alias lf='lfub'
 
 # qrcp
 alias qr='qrcp --port 8888 --path vd --zip'
@@ -283,8 +295,18 @@ alias lg='lazygit'
 # ssh
 alias ssh='TERM=xterm ssh'
 
+# sleep
+alias disslp='sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target'
+alias enslp='sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target'
+
 # md
 alias mkd='mkdir'
+
+# save the screen shot
+save_shot() {
+  [[ "$#" -eq 1 ]] || return 1
+  xclip -selection clipboard -t image/png -o > "$1"
+}
 
 # run asm
 asmc() {
