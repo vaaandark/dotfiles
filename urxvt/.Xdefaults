@@ -2,23 +2,23 @@ URxvt*perl-ext-common: bell-command,clipboard-osc,eval,matcher,option-popup,over
 !extensions that no longer used
 !background,resize-font,confirm-paste,pasta
 URxvt*font: \
-xft:SauceCodePro\ Nerd\ Font\ Mono:style=Regular:size=24:antialias=true:hinting=true,\
-xft:WenQuanYi\ Micro\ Hei:size=24:antialias=true:hinting=true,\
-xft:Noto\ Color\ Emoji:size=24:antialias=true:hinting=true,\
-xft:Noto\ Emoji:size=24:antialias=true:hinting=true,\
-xft:Android\ Emoji:size=24:antialias=true:hinting=true,\
-xft:Unifont:style=Medium:size=24:antialias=true:hinting=true
+xft:SauceCodePro\ Nerd\ Font\ Mono:style=Regular:size=16:antialias=true:hinting=true,\
+xft:WenQuanYi\ Micro\ Hei:size=16:antialias=true:hinting=true,\
+xft:Noto\ Color\ Emoji:size=16:antialias=true:hinting=true,\
+xft:Noto\ Emoji:size=16:antialias=true:hinting=true,\
+xft:Android\ Emoji:size=16:antialias=true:hinting=true,\
+xft:Unifont:style=Medium:size=16:antialias=true:hinting=true
 
 URxvt*boldfont: \
-xft:SauceCodePro\ Nerd\ Font\ Mono:style=Bold:size=24:antialias=true:hinting=true,\
-xft:WenQuanYi\ Micro\ Hei:size=24:antialias=true:hinting=true,\
-xft:Unifont:style=Medium:size=24:antialias=true:hinting=true
+xft:SauceCodePro\ Nerd\ Font\ Mono:style=Bold:size=16:antialias=true:hinting=true,\
+xft:WenQuanYi\ Micro\ Hei:size=16:antialias=true:hinting=true,\
+xft:Unifont:style=Medium:size=16:antialias=true:hinting=true
 
 URxvt*borderLess: Off
 URxvt*cursorBlink:False
 URxvt*cursorColor:#eeeeee
 URxvt*cursorUnderline:False
-URxvt*depth:24
+URxvt*depth:16
 URxvt*externalBorder:False
 URxvt*geometry: 80x25
 !A extra character for extension tabbed
@@ -72,7 +72,7 @@ URxvt.keysym.Control-Shift-C: eval:selection_to_clipboard
 *color0:  #282828
 *color8:  #928374
 ! DarkRed + Red
-*color1:  #cc241d
+*color1:  #cc161d
 *color9:  #fb4934
 ! DarkGreen + Green
 *color2:  #98971a
