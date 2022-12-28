@@ -26,3 +26,5 @@ api.nvim_set_keymap('c', '%%', "getcmdtype() == ':' ? expand('%:h').'/' : '%%'",
 api.nvim_set_keymap('n', 'n', 'nzz', { noremap = true, silent = true })
 api.nvim_set_keymap('n', 'N', 'Nzz', { noremap = true, silent = true })
 
+-- copy to system clipboard
+api.nvim_set_keymap('v', 'Y', '"+y', { noremap = true, silent = true })
