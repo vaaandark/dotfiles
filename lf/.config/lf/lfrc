@@ -1,4 +1,5 @@
-# copied from Luke's lf settings
+# vaaandark's lf settings
+# partly copied from Luke's lf settings
 
 # Note on Image Previews
 # For those wanting image previews, like this system, there are four steps to
@@ -17,7 +18,7 @@
 
 # Basic vars
 set ifs "\n"
-set scrolloff 10
+set scrolloff 5
 set icons
 set drawbox true
 set period 1
@@ -29,29 +30,64 @@ set autoquit on
 # cmds/functions
 cmd open ${{
     case $(file --mime-type "$(readlink -f $f)" -b) in
-        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) localc $fx ;;
-        image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
-        text/*|application/json|inode/x-empty) $EDITOR $fx;;
-        image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
-        image/svg+xml) display -- $f ;;
-        image/*) viewnoir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
+        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet)
+            localc $fx
+        ;;
+        image/vnd.djvu|application/pdf|application/octet-stream|application/postscript)
+            setsid -f zathura $fx >/dev/null 2>&1
+        ;;
+        text/*|application/json|inode/x-empty)
+            $EDITOR $fx
+        ;;
+        image/x-xcf)
+            setsid -f gimp $f >/dev/null 2>&1
+        ;;
+        image/svg+xml)
+            display -- $f
+        ;;
+        image/*)
+            viewnoir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
             setsid -f sxiv -aio 2>/dev/null | while read -r file; do
-            [ -z "$file" ] && continue
-            lf -remote "send select \"$file\""
-            lf -remote "send toggle"
+                [ -z "$file" ] && continue
+                lf -remote "send select \"$file\""
+                lf -remote "send toggle"
             done &
-            ;;
-        audio/*) mpv --audio-display=no $f ;;
-        video/*|application/vnd.rn-realmedia) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
-        application/pdf|application/vnd.djvu|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
-        application/pgp-encrypted) $EDITOR $fx ;;
-        application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text) setsid -f lowriter $fx >/dev/null 2>&1 ;;
-        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|application/octet-stream|application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.spreadsheet-template) setsid -f localc $fx >/dev/null 2>&1 ;;
-        application/vnd.openxmlformats-officedocument.presentationml.presentation|application/vnd.oasis.opendocument.presentation-template|application/vnd.oasis.opendocument.presentation|application/vnd.ms-powerpoint) setsid -f loimpress $fx >/dev/null 2>&1 ;;
-        application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.graphics-template) setsid -f lodraw $fx >/dev/null 2>&1 ;;
-        application/vnd.oasis.opendocument.formula) setsid -f lomath $fx >/dev/null 2>&1 ;;
-        application/vnd.oasis.opendocument.database) setsid -f lobase $fx >/dev/null 2>&1 ;;
-        *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
+        ;;
+        audio/*)
+            mpv --audio-display=no $f
+        ;;
+        video/*|application/vnd.rn-realmedia)
+            setsid -f mpv $f -quiet >/dev/null 2>&1
+        ;;
+        application/pdf|application/vnd.djvu|application/epub*)
+            setsid -f zathura $fx >/dev/null 2>&1
+        ;;
+        application/pgp-encrypted)
+            $EDITOR $fx
+        ;;
+        application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text)
+            setsid -f libreoffice --writer  $fx >/dev/null 2>&1
+        ;;
+        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|application/octet-stream|application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.spreadsheet-template)
+            setsid -f libreoffice --calc $fx >/dev/null 2>&1
+        ;;
+        application/vnd.openxmlformats-officedocument.presentationml.presentation|application/vnd.oasis.opendocument.presentation-template|application/vnd.oasis.opendocument.presentation|application/vnd.ms-powerpoint)
+            setsid -f libreoffice --impress $fx >/dev/null 2>&1
+        ;;
+        application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.graphics-template)
+            setsid -f libreoffice --draw $fx >/dev/null 2>&1
+        ;;
+        application/vnd.oasis.opendocument.formula)
+            setsid -f libreoffice --math $fx >/dev/null 2>&1
+        ;;
+        application/vnd.oasis.opendocument.database)
+            setsid -f libreoffice --base $fx >/dev/null 2>&1
+        ;;
+        *)
+            for f in $f; do
+                setsid -f $OPENER $f >/dev/null 2>&1
+            done
+        ;;
     esac
 }}
 
@@ -106,22 +142,28 @@ map <c-n> push :mkdir<space>
 map <c-r> reload
 map <c-s> set hidden!
 map <enter> shell
-map x $$f
-map X !$f
+
 map o &mimeopen --no-ask "$f"
 map O $mimeopen --ask "$f"
 
-map A rename # at the very end
-map c push A<c-u> # new rename
-map I push A<c-a> # at the very beginning
+# for example `text.out`
+#                      |__ A
+#              |__________ I
+#                 |_______ i
+#                  |______ a
+map A rename                # at the very end
+map I push A<c-a>           # at the very beginning
 map i push A<a-b><a-b><a-f> # before extension
-map a push A<a-b> # after extension
+map a push A<a-b>           # after extension
+map c push A<c-u>           # totally new rename
 
 map V push :!nvim<space>
 
-map W $setsid -f $TERMINAL >/dev/null 2>&1
+map W $setsid -f alacritty >/dev/null 2>&1
 
-map Y !printf "%s" "$fx" | xclip -selection clipboard
+# copy the names of selections
+map Y $printf "%s" "$fx" | xclip -selection clipboard
+# copy current file selection if it's image, or just copy its name
 map <c-y> copyimg
 
 # movement
@@ -135,7 +177,7 @@ map gs cd ~/src
 map gt cd ~/tmp
 
 map gc cd ~/.config
-map gv cd ~/src/dev
+map gr cd ~/src/dev
 map gb cd ~/src/dev/scripts
 
 map gh cd ~/Documents/SchoolCodeWork
