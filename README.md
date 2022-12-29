@@ -81,6 +81,10 @@
 
 执行完`make`之后可以使用`copen`查看信息。
 
+### lf
+
+启动`lf`之前首先要初始化`ueberzug`，因此`alias lf=lfub`，该脚本在`scripts`目录中。
+
 ### ranger
 
 只是安装了一个主题`ranger_devicons`
