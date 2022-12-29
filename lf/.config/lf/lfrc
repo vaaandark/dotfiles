@@ -16,10 +16,10 @@
 #    called directly instead of normal lf.
 
 # Basic vars
-set shellopts '-eu'
 set ifs "\n"
 set scrolloff 10
 set icons
+set drawbox true
 set period 1
 set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
 set cleaner '~/.config/lf/cleaner'
@@ -32,54 +32,74 @@ cmd open ${{
         application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) localc $fx ;;
         image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
         text/*|application/json|inode/x-empty) $EDITOR $fx;;
-              image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
-              image/svg+xml) display -- $f ;;
-              image/*) viewnoir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
-              setsid -f sxiv -aio 2>/dev/null | while read -r file; do
-              [ -z "$file" ] && continue
-              lf -remote "send select \"$file\""
-              lf -remote "send toggle"
-              done &
-              ;;
-              audio/*) mpv --audio-display=no $f ;;
-              video/*|application/vnd.rn-realmedia) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
-              application/pdf|application/vnd.djvu|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
-              application/pgp-encrypted) $EDITOR $fx ;;
-              application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text) setsid -f lowriter $fx >/dev/null 2>&1 ;;
-              application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|application/octet-stream|application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.spreadsheet-template) setsid -f localc $fx >/dev/null 2>&1 ;;
-              application/vnd.openxmlformats-officedocument.presentationml.presentation|application/vnd.oasis.opendocument.presentation-template|application/vnd.oasis.opendocument.presentation|application/vnd.ms-powerpoint) setsid -f loimpress $fx >/dev/null 2>&1 ;;
-              application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.graphics-template) setsid -f lodraw $fx >/dev/null 2>&1 ;;
-              application/vnd.oasis.opendocument.formula) setsid -f lomath $fx >/dev/null 2>&1 ;;
-              application/vnd.oasis.opendocument.database) setsid -f lobase $fx >/dev/null 2>&1 ;;
-             *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
-             esac
-             }}
+        image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
+        image/svg+xml) display -- $f ;;
+        image/*) viewnoir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
+            setsid -f sxiv -aio 2>/dev/null | while read -r file; do
+            [ -z "$file" ] && continue
+            lf -remote "send select \"$file\""
+            lf -remote "send toggle"
+            done &
+            ;;
+        audio/*) mpv --audio-display=no $f ;;
+        video/*|application/vnd.rn-realmedia) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+        application/pdf|application/vnd.djvu|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
+        application/pgp-encrypted) $EDITOR $fx ;;
+        application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text) setsid -f lowriter $fx >/dev/null 2>&1 ;;
+        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|application/octet-stream|application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.spreadsheet-template) setsid -f localc $fx >/dev/null 2>&1 ;;
+        application/vnd.openxmlformats-officedocument.presentationml.presentation|application/vnd.oasis.opendocument.presentation-template|application/vnd.oasis.opendocument.presentation|application/vnd.ms-powerpoint) setsid -f loimpress $fx >/dev/null 2>&1 ;;
+        application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.graphics-template) setsid -f lodraw $fx >/dev/null 2>&1 ;;
+        application/vnd.oasis.opendocument.formula) setsid -f lomath $fx >/dev/null 2>&1 ;;
+        application/vnd.oasis.opendocument.database) setsid -f lobase $fx >/dev/null 2>&1 ;;
+        *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
+    esac
+}}
 
-             cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
+cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
-             cmd extract ${{
-             clear; tput cup $(($(tput lines)/3)); tput bold
-             set -f
-             printf "%s\n\t" "$fx"
-             printf "extract?[y/N]"
-             read ans
-             [ $ans = "y" ] && aunpack $fx
-             }}
+cmd extract ${{
+    clear; tput cup $(($(tput lines)/3)); tput bold
+    set -f
+    printf "%s\n\t" "$fx"
+    printf "extract?[y/N] "
+    read ans
+    [ $ans = "y" ] && aunpack $fx
+}}
 
-             cmd delete ${{
-             clear; tput cup $(($(tput lines)/3)); tput bold
-             set -f
-             printf "%s\n\t" "$fx"
-             printf "delete?[y/N]"
-             read ans
-             [ $ans = "y" ] && rm -rf -- $fx
-             }}
+cmd delete ${{
+    clear; tput cup $(($(tput lines)/3)); tput bold
+    set -f
+    printf "%s\n\t" "$fx"
+    printf "delete?[y/N] "
+    read ans
+    [ $ans = "y" ] && rm -rf -- $fx
+}}
+
+cmd copyimg ${{
+    mime_type="$(file --dereference --brief --mime-type -- "$f")"
+    case "$mime_type" in
+        image/*) xclip -sel clip -t "$mime_type" "$f";;
+        *) printf "%s" "$f" | xclip -selection clipboard;;
+    esac
+}}
+
+cmd on-cd &{{
+    # display git repository status in your prompt
+    source /usr/share/git-core/contrib/completion/git-prompt.sh
+    GIT_PS1_SHOWDIRTYSTATE=auto
+    GIT_PS1_SHOWSTASHSTATE=auto
+    GIT_PS1_SHOWUNTRACKEDFILES=auto
+    GIT_PS1_SHOWUPSTREAM=auto
+    git=$(__git_ps1 " (%s)") || true
+    fmt="\033[32;1m%u@%h\033[0m:\033[34;1m%d\033[0m\033[1m%f$git\033[0m"
+    lf -remote "send $id set promptfmt \"$fmt\""
+}}
+
+on-cd
 
 # Bindings
 map <c-f> $lf -remote "send $id select \"$(fzf)\""
 map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)"
-map gh
-map g top
 map D delete
 map E extract
 map <c-n> push :mkdir<space>
@@ -97,10 +117,33 @@ map I push A<c-a> # at the very beginning
 map i push A<a-b><a-b><a-f> # before extension
 map a push A<a-b> # after extension
 
-map <c-e> down
-map <c-y> up
 map V push :!nvim<space>
 
 map W $setsid -f $TERMINAL >/dev/null 2>&1
 
-map Y $printf "%s" "$fx" | xclip -selection clipboard
+map Y !printf "%s" "$fx" | xclip -selection clipboard
+map <c-y> copyimg
+
+# movement
+map gd cd ~/Documents
+map gD cd ~/Downloads
+map gv cd ~/Videos
+map gl cd ~/labs
+map gp cd ~/Pictures
+map gC cd ~/dotfiles
+map gs cd ~/src
+map gt cd ~/tmp
+
+map gc cd ~/.config
+map gv cd ~/src/dev
+map gb cd ~/src/dev/scripts
+
+map gh cd ~/Documents/SchoolCodeWork
+map gH cd ~/Documents/SchoolWork
+
+map gV cd ~/.config/nvim
+map gI cd ~/.config/i3
+map gL cd ~/.config/lf
+
+map gB cd ~/Videos/bilibili
+map gS cd ~/Videos/sports
