@@ -2,22 +2,30 @@
 
 使用`stow`管理我的配置文件
 
-## 内容
+* [alacritty](#alacritty)
+* [i3 and i3blocks](#i3-and-i3blocks)
+* [nvim](#nvim)
+* [zsh](#zsh)
+* [lf](#lf)
+* [ranger](#ranger)
+* [urxvt](#urxvt)
+* [user-dirs](#user-dirs)
+* [40-libinput.conf](#40-libinput.conf)
 
-### alacritty
+## alacritty
 
 使用的字体是`SauceCodePro Nerd Font`，这是`Source Code Pro`的`Nerd`版本。
 
 使用的主题配色是`Gruvbox Material Dark Medium`。
 
-### i3 & i3blocks
+## i3-and-i3blocks
 
 `i3blocks`中的配置文件依赖于一些我写的或者网上找到的脚本，可能在其他机器上运行效果不好，需要根据用途修改。
 
 配置好了的效果如下：
 ![i3wm效果图](./image/i3.png)
 
-### nvim
+## nvim
 
 使用的是轻量化的插件管理器`vim-plug`，~~而且我认为`vim`并不需要很优秀的补全方案，如果实在很依赖智能补全，完全可以使用`VS code`或者`IDE`搭配它们提供的`vim`插件，因此我安装插件的原则还是够用就行，尽量精简。~~
 
@@ -67,7 +75,7 @@
 
 用到的插件有 `neovim/nvim-lspconfig` `hrsh7th/cmp-nvim-lsp` `hrsh7th/cmp-buffer` `hrsh7th/cmp-path` `hrsh7th/cmp-cmdline` `hrsh7th/nvim-cmp` `hrsh7th/cmp-vsnip` `hrsh7th/vim-vsnip` `neovim/nvim-lspconfig` `simrat39/rust-tools`
 
-支持 lua rust C / C++ python bash
+支持 lua、rust、C、/、C++、python、bash 等
 
 补全提示效果：
 
@@ -81,29 +89,7 @@
 
 执行完`make`之后可以使用`copen`查看信息。
 
-### lf
-
-启动`lf`之前首先要初始化`ueberzug`，因此`alias lf=lfub`，该脚本在`scripts`目录中。
-
-### ranger
-
-只是安装了一个主题`ranger_devicons`
-
-``` bash
-git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
-```
-
-### urxvt
-
-使用的也是`Gruvbox`主题。
-
-`urxvt`配置较为麻烦的一点就是字体文件只有写入配置文件才会被使用，你可以使用命令`fc-list | awk -F : '{ print $2 }'`来查看你的系统中字体的名字。
-
-### user-dirs
-
-关于用户目录中如`Download`、`Documents`等子目录的本地化配置。
-
-### zsh
+## zsh
 
 我认为使用如`oh-my-zsh`这样的插件管理器会让`zsh`的启动速度变慢很多，因此我是手动管理的插件。
 
@@ -114,7 +100,7 @@ git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger
 wget -O .zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
 ```
 
-我使用的插件：
+**我使用的插件：**
 
 | 插件功能 | 插件名 |
 | --- | -- |
@@ -124,6 +110,69 @@ wget -O .zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
 | 提供更强大的补全 | `zsh-completions.plugin.zsh` |
 | `C-r`搜索历史记录时使用`fzf` | `zsh-fzf-history-search` |
 
-### 40-libinput.conf
+## lf
+
+启动`lf`之前首先要初始化`ueberzug`，因此`alias lf=lfub`，该脚本用于初始化工作，在`scripts`目录中。
+
+**打开：**
+
+| 功能           | 依赖名称        |
+|--------------- | --------------- |
+| 图片           | viewnior        |
+| 视频           | mpv             |
+| pdf            | zathura         |
+| opendocument   | libreoffice     |
+| 压缩或打包文件 | aunpack         |
+| 根据 mime type | mimeopen        |
+
+**预览：**
+
+> 很多文件种类的预览都是基于将封面转换为图片来实现的
+
+| 功能           | 依赖名称               |
+|--------------- | ---------------------- |
+| 图片           | ueberzug               |
+| 视频           | ffmpegthumbnailer      |
+| 多媒体         | mediainfo              |
+| html           | lynx                   |
+| markdown       | glow                   |
+| epub           | gnome-epub-thumbnailer |
+| pdf            | pdftoppm               |
+| 其他文本       | bat                    |
+| zip            | atool                  |
+| opendocument   | odt2txt                |
+| 加密           | gpg                    |
+
+**其他：**
+
+| 功能           | 依赖名称        |
+|--------------- | --------------- |
+| 终端           | alacritty       |
+| 剪贴板         | xclip           |
+| 仓库状态       | git             |
+
+> 要在`/usr/share`目录下找到脚本`git-prompt.sh`，用于显示仓库状态
+
+## ranger
+
+> （已弃用，如今使用 lf ）
+
+只是安装了一个主题`ranger_devicons`
+
+``` bash
+git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
+```
+
+## urxvt
+
+使用的也是`Gruvbox`主题。
+
+`urxvt`配置较为麻烦的一点就是字体文件只有写入配置文件才会被使用，你可以使用命令`fc-list | awk -F : '{ print $2 }'`来查看你的系统中字体的名字。
+
+## user-dirs
+
+关于用户目录中如`Download`、`Documents`等子目录的本地化配置。
+
+## 40-libinput.conf
 
 `libinput`的触摸板配置。
