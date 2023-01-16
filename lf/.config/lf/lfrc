@@ -46,7 +46,7 @@ cmd open ${{
             display -- $f
         ;;
         image/*)
-            viewnoir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
+            viewnior $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
             setsid -f sxiv -aio 2>/dev/null | while read -r file; do
                 [ -z "$file" ] && continue
                 lf -remote "send select \"$file\""
