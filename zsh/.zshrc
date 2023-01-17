@@ -155,7 +155,7 @@ masm() {
 }
 
 ### customize the grml-zsh-config ###
-zstyle ':prompt:grml:left:setup' items rc change-root time host path vcs newline jobs
+zstyle ':prompt:grml:left:setup' items rc change-root path vcs newline jobs
 autoload -U colors && colors
   zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:*' check-for-changes true
@@ -191,6 +191,9 @@ export PATH="$HOME/.local/bin:$PATH"
 
 ### default editor ###
 export EDITOR=nvim
+
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c"
 
 ### pdf viewer
 alias za=zathura
@@ -291,9 +294,6 @@ alias al='arduino-cli'
 
 # lazygit
 alias lg='lazygit'
-
-# ssh
-alias ssh='TERM=xterm ssh'
 
 # sleep
 alias disslp='sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target'
