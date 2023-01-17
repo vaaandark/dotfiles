@@ -11,8 +11,15 @@ return require('packer').startup(function(use)
   use 'iamcco/markdown-preview.nvim'
   use 'skywind3000/vim-terminal-help'
   use 'skywind3000/asyncrun.vim'
-  use 'sainnhe/gruvbox-material'
   use 'lambdalisue/suda.vim'
+  use({
+    'projekt0n/github-nvim-theme', tag = '0.0.x',
+    config = function()
+      require('github-theme').setup({
+        -- ...
+      })
+    end
+  })
   use 'Yggdroot/indentLine'
   use 'tpope/vim-surround'
   use 'nvim-lualine/lualine.nvim'
