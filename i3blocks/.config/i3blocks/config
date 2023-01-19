@@ -1,13 +1,13 @@
-[TITLE]
-command=~/.config/i3blocks/title/title.sh
-interval=1
+#[TITLE]
+#command=~/.config/i3blocks/title/title.sh
+#interval=1
 
-[wifi]
+[WIFI]
 command=echo "WIFI $(nmcli d w s | head -n 1 | cut -d ' ' -f2-)" | tail -n 1 | tr '[:lower:]' '[:upper:]'
 interval=5
 color=#91E78B
 
-[ip]
+[IP]
 command=hostname -i | awk '{ print ""$NF"" }'
 interval=5
 color=#FEC925
@@ -42,6 +42,11 @@ color=#E5201D
 [TIME_DATE]
 command=date +"%m/%d %H:%M"
 interval=1
+
+[WEATHER]
+command=curl "wttr.in/wuhan?format=%C+%t+%p\n"
+interval=1800
+color=#FEC925
 
 [AUTO_BACKLIGHT]
 command=~/.local/bin/set_backlight
