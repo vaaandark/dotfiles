@@ -44,7 +44,7 @@ command=date +"%m/%d %H:%M"
 interval=1
 
 [WEATHER]
-command=curl "wttr.in/wuhan?format=%C+%t+%p\n"
+command=curl "wttr.in/wuhan?format=%C+%t+%p+%w+%m\n"
 interval=1800
 color=#FEC925
 
