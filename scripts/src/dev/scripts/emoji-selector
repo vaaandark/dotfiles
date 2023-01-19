@@ -4,8 +4,8 @@ chosen="$(sed '0,/^__DATA__$/d' "$0" | cut -d ';' -f1 | rofi -dmenu -font "Sourc
 [ "$chosen" != "" ] || exit 1
 
 c="${chosen// */}"
-echo "$c" | tr -d '\n' | xsel -b
-notify-send "$c copied to clipboard." &
+xdotool type "$c"
+notify-send "$c was selected." &
 
 exit 0
 
@@ -13,28 +13,28 @@ __DATA__
 😀 grinning face, hh, haha, daxiao, daxn, luiidaxn; U+1F600
 😃 grinning face with big eyes, hh, haha, daxiao, daxn; U+1F603
 😄 grinning face with smiling eyes, gaoxing, gcxb; U+1F604
-😁 beaming face with smiling eyes, heihei; U+1F601
-😆 grinning squinting face, haha, hh, kaixin; U+1F606
+😁 beaming face with smiling eyes, heihei, hwhw; U+1F601
+😆 grinning squinting face, haha, hh, kaixin, kdxb; U+1F606
 😅 grinning face with sweat, lqhjhldz; U+1F605
-🤣 rolling on the floor laughing; U+1F923
-😂 face with tears of joy, xiaoku, xnku; U+1F602
-🙂 slightly smiling face; U+1F642
+🤣 rolling on the floor laughing, xnsi; U+1F923
+😂 face with tears of joy, xiaoku, xnku, xnsi; U+1F602
+🙂 slightly smiling face, wwxn; U+1F642
 🙃 upside-down face, daolian, dclm; U+1F643
 😉 winking face, ok, vayj; U+1F609
-😊 smiling face with smiling eyes, xiao; U+1F60A
-😇 smiling face with halo, tianshi; U+1F607
-🥰 smiling face with 3 hearts; U+1F970
+😊 smiling face with smiling eyes, xiao, xn; U+1F60A
+😇 smiling face with halo, tianshi, tmui; U+1F607
+🥰 smiling face with 3 hearts, xb; U+1F970
 😍 smiling face with heart-eyes, se; U+1F60D
-🤩 star-struck, wen; U+1F929
-😘 face blowing a kiss, bo, aini, qin; U+1F618
-😗 kissing face; U+1F617
-😚 kissing face with closed eyes, qin; U+1F61A
-😙 kissing face with smiling eyes; U+1F619
-😋 face savoring food; U+1F60B
-😛 face with tongue, tiaopi; U+1F61B
-😜 winking face with tongue, tushe, keai; U+1F61C
-🤪 zany face; U+1F92A
-😝 squinting face with tongue; U+1F61D
+🤩 star-struck, wen, xk; U+1F929
+😘 face blowing a kiss, bo, aini, qin, qb; U+1F618
+😗 kissing face, qb; U+1F617
+😚 kissing face with closed eyes, qin, qb; U+1F61A
+😙 kissing face with smiling eyes, qb; U+1F619
+😋 face savoring food, hcii; U+1F60B
+😛 face with tongue, tiaopi, tnpi, tuue; U+1F61B
+😜 winking face with tongue, tushe, keai ,keai, tuue; U+1F61C
+🤪 zany face, tuue; U+1F92A
+😝 squinting face with tongue, tuue; U+1F61D
 🤑 money-mouth face, qian, dollar; U+1F911
 🤗 hugging face, yongbao, bao; U+1F917
 🤭 face with hand over mouth; U+1F92D
