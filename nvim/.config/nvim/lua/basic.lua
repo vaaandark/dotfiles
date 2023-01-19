@@ -17,3 +17,4 @@ set.scrolloff=3
 set.syntax = 'on'
 set.colorcolumn = '80'
 vim.wo.signcolumn = 'yes'
+set.mouse = ''
