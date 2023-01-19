@@ -46,15 +46,6 @@ o() {
   done
 }
 
-# ranger
-ra() {
-  if [ -z "$RANGER_LEVEL" ]; then
-    ranger
-  else
-    exit
-  fi
-}
-
 mntu() {
   udisksctl mount --block-device "$@" || return 1
   echo "ln -sf /run/media/$(whoami)/* $HOME/src/media/"
@@ -154,6 +145,42 @@ masm() {
     -c 'exit' 2>/dev/null
 }
 
+# save the screen shot
+save_shot() {
+  [[ "$#" -eq 1 ]] || return 1
+  xclip -selection clipboard -t image/png -o > "$1"
+}
+
+# run asm
+asmc() {
+  local base="$(basename "$1" .asm)"
+  nasm -f elf32 "$base.asm"
+  gcc -m32 "$base.o" -o "$base"
+  "./$base"
+  local ret="$?"
+  rm "$base" "$base.o"
+  return ret
+}
+
+# trans
+trans() {
+  if [[ -z $1 ]]; then
+    command trans en:zh -show-prompt-message Y -I
+  else
+    command trans en:zh $1
+  fi
+}
+alias entrans='command trans'
+
+md() {
+  if [ -z "$2" ]; then
+    mkdir "$1" || return
+    cd "$1"
+  else
+    mkdir "$@"
+  fi
+}
+
 ### customize the grml-zsh-config ###
 zstyle ':prompt:grml:left:setup' items rc change-root path vcs newline jobs
 autoload -U colors && colors
@@ -212,7 +239,6 @@ alias h='hx'
 alias l='ls'
 alias c='clear'
 alias s='setxkbmap -option ctrl:swapcaps'
-alias e='emacs -nw -Q'
 alias n='neofetch'
 
 alias unkeymap='setxkbmap -option'
@@ -231,7 +257,7 @@ alias rl='rmall'
 
 # weather
 alias weather='curl v2.wttr.in/wuhan'
-alias wea='curl "wttr.in/shenzhen?format=%C+%t+%p\n"'
+alias wea='curl "wttr.in/wuhan?format=%C+%t+%p\n"'
 
 # nvim no plugins
 alias vi='nvim --noplugin'
@@ -301,42 +327,6 @@ alias enslp='sudo systemctl unmask sleep.target suspend.target hibernate.target 
 
 # md
 alias mkd='mkdir'
-
-# save the screen shot
-save_shot() {
-  [[ "$#" -eq 1 ]] || return 1
-  xclip -selection clipboard -t image/png -o > "$1"
-}
-
-# run asm
-asmc() {
-  local base="$(basename "$1" .asm)"
-  nasm -f elf32 "$base.asm"
-  gcc -m32 "$base.o" -o "$base"
-  "./$base"
-  local ret="$?"
-  rm "$base" "$base.o"
-  return ret
-}
-
-# trans
-trans() {
-  if [[ -z $1 ]]; then
-    command trans en:zh -show-prompt-message Y -I
-  else
-    command trans en:zh $1
-  fi
-}
-alias entrans='command trans'
-
-md() {
-  if [ -z "$2" ]; then
-    mkdir "$1" || return
-    cd "$1"
-  else
-    mkdir "$@"
-  fi
-}
 
 eval "$(lua "$HOME/src/tools/z.lua/z.lua"  --init zsh once enhanced)"
 
