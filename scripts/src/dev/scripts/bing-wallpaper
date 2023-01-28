@@ -1,0 +1,31 @@
+#!/bin/bash
+
+prefix="$HOME/Pictures/Bing/"
+list_path="${prefix}img_list.txt"
+mkdir -p "$prefix"
+
+bing_base_url='https://www.bing.com'
+
+if json_body="$(curl -s --no-progress-meter --connect-timeout 3 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1')"; then
+  default_url="$bing_base_url$(grep -oP "url\":\"[^\"]*" <<<"$json_body" | cut -d "\"" -f 3)"
+  required_url="$bing_base_url$(grep -oP "urlbase\":\"[^\"]*" <<<"$json_body" | cut -d "\"" -f 3)"
+
+  if ! wget --quiet --spider --max-redirect 0 "$required_url"; then
+    required_url="$default_url"
+  fi
+
+  img_name="$(grep -oP '(?<=id=)(.*?jpg)' <<<"$required_url")"
+
+  printf "Bing Image of the day: %s\n" "$img_name"
+
+  path="$prefix$img_name"
+
+  if curl -L -s -o "$path" "$required_url"; then
+    echo "$img_name" >>"$list_path"
+  fi
+
+else
+  path="$prefix$(tail -n 1 "$list_path")"
+fi
+
+feh --bg-scale "$path"

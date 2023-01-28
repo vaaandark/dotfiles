@@ -39,7 +39,7 @@ for_window [all] title_window_icon off
 exec --no-startup-id xss-lock --transfer-sleep-lock -- /home/vandark/.local/bin/i3exit suspend --nofork
 exec --no-startup-id fcitx5
 exec --no-startup-id sh -c ~/.local/bin/battery-check
-exec --no-startup-id sh -c ~/.local/bin/set_wallpapers
+exec --no-startup-id sh -c ~/.local/bin/bing-wallpaper
 exec --no-startup-id /opt/ClashForWindows/cfw
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
 
