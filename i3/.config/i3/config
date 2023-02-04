@@ -40,7 +40,6 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- /home/vandark/.local/bin/
 exec --no-startup-id fcitx5
 exec --no-startup-id sh -c ~/.local/bin/battery-check
 exec --no-startup-id sh -c ~/.local/bin/bing-wallpaper
-exec --no-startup-id /opt/ClashForWindows/cfw
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
@@ -206,27 +205,27 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize  " {
-# These bindings trigger as soon as you enter the resize mode
+    # These bindings trigger as soon as you enter the resize mode
 
-# Pressing left will shrink the window’s width.
-# Pressing right will grow the window’s width.
-# Pressing up will shrink the window’s height.
-# Pressing down will grow the window’s height.
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
     bindsym h resize shrink width 5 px or 5 ppt
-        bindsym j resize grow height 5 px or 5 ppt
-        bindsym k resize shrink height 5 px or 5 ppt
-        bindsym l resize grow width 5 px or 5 ppt
+    bindsym j resize grow height 5 px or 5 ppt
+    bindsym k resize shrink height 5 px or 5 ppt
+    bindsym l resize grow width 5 px or 5 ppt
 
-# same bindings, but for the arrow keys
-        bindsym Left resize shrink width 5 px or 5 ppt
-        bindsym Down resize grow height 5 px or 5 ppt
-        bindsym Up resize shrink height 5 px or 5 ppt
-        bindsym Right resize grow width 5 px or 5 ppt
+    # same bindings, but for the arrow keys
+    bindsym Left resize shrink width 5 px or 5 ppt
+    bindsym Down resize grow height 5 px or 5 ppt
+    bindsym Up resize shrink height 5 px or 5 ppt
+    bindsym Right resize grow width 5 px or 5 ppt
 
-# back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+    # back to normal: Enter or Escape or $mod+r
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
 }
 
 bindsym $mod+r mode "resize  "
@@ -235,15 +234,15 @@ bindsym $mod+r mode "resize  "
 set $mode_system System (l) lock   (s) suspend (h) hibernate (r) reboot   (Shift+s) shutdown  
 mode "$mode_system" {
     bindsym l exec --no-startup-id sh -c '~/.local/bin/i3exit lock', mode "default"
-        bindsym e exec --no-startup-id sh -c '~/.local/bin/i3exit logout', mode "default"
-        bindsym s exec --no-startup-id sh -c '~/.local/bin/i3exit suspend', mode "default"
-        bindsym h exec --no-startup-id sh -c '~/.local/bin/i3exit hibernate', mode "default"
-        bindsym r exec --no-startup-id sh -c '~/.local/bin/i3exit reboot', mode "default"
-        bindsym Shift+s exec --no-startup-id sh -c '~/.local/bin/i3exit shutdown', mode "default"
+    bindsym e exec --no-startup-id sh -c '~/.local/bin/i3exit logout', mode "default"
+    bindsym s exec --no-startup-id sh -c '~/.local/bin/i3exit suspend', mode "default"
+    bindsym h exec --no-startup-id sh -c '~/.local/bin/i3exit hibernate', mode "default"
+    bindsym r exec --no-startup-id sh -c '~/.local/bin/i3exit reboot', mode "default"
+    bindsym Shift+s exec --no-startup-id sh -c '~/.local/bin/i3exit shutdown', mode "default"
 
-# back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 bindsym $mod+BackSpace mode "$mode_system"
 
@@ -267,25 +266,25 @@ assign [class="Code"] $ws4
 bar {
 #    mode hide
     strip_workspace_numbers yes
-        position bottom
-        status_command i3blocks
+    position bottom
+    status_command i3blocks
 
-        font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+    font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
-        font pango:Source Code Pro Bold 10
+    font pango:Source Code Pro Bold 12
 
-        colors {
-            background #24292E
-                statusline #AACC60
-                separator  #629692
+    colors {
+        background #24292E
+        statusline #D1D5DA
+        separator  #6A737D
 
-#                      border  backgr. text
-                focused_workspace  #F9FAF9 #16a085 #292F34
-                active_workspace   #595B5B #353836 #FDF6E3
-                inactive_workspace #595B5B #222D31 #EEE8D5
-                binding_mode       #16a085 #2C2C2C #F9FAF9
-                urgent_workspace   #16a085 #FDF6E3 #E5201D
-        }
+        #                  border  backgr. text
+        focused_workspace  #F9FAF9 #16a085 #292F34
+        active_workspace   #595B5B #353836 #FDF6E3
+        inactive_workspace #595B5B #222D31 #EEE8D5
+        binding_mode       #16a085 #2C2C2C #F9FAF9
+        urgent_workspace   #16a085 #FDF6E3 #E5201D
+    }
 }
 
 # hide/unhide i3status bar
