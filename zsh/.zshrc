@@ -162,16 +162,6 @@ asmc() {
   return ret
 }
 
-# trans
-trans() {
-  if [[ -z $1 ]]; then
-    command trans en:zh -show-prompt-message Y -I
-  else
-    command trans en:zh $1
-  fi
-}
-alias entrans='command trans'
-
 md() {
   if [ -z "$2" ]; then
     mkdir "$1" || return
@@ -253,7 +243,7 @@ alias qr='qrcp --port 8888 --path vd --zip'
 alias objdump='objdump --disassembler-options=intel'
 
 # rmall - a self-made dictionary
-alias rl='rmall'
+alias rl='rmall lookup -l ~/.config/rmall/oxford-gb/'
 
 # weather
 alias weather='curl v2.wttr.in/wuhan'
@@ -324,6 +314,10 @@ alias lg='lazygit'
 # sleep
 alias disslp='sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target'
 alias enslp='sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target'
+
+# proxy
+alias proxy='export http_proxy="http://127.0.0.1:7890"; export https_proxy="http://127.0.0.1:7890"'
+alias unproxy='unset http_proxy; unset https_proxy'
 
 # md
 alias mkd='mkdir'
