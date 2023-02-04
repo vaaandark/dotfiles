@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xv
+#set -xv
 if [[ -f /tmp/auto_backlight.lock ]]; then
   exit 1
 else

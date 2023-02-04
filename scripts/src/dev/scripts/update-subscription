@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# download the subscription
+url="$1"
+wget -O config.yaml "$url"
+
+# change log level
+sed -i "s/log-level: silent/log-level: info/" config.yaml
+
+# use clash dashboard
+sed -i "/external-controller: '*'/a external-ui: \/opt\/clash-dashboard\/" config.yaml
+
+# use type url-test
+sed -i "0,/type: select/{s/type: select/type: url-test\n    url: 'https:\/\/www.gstatic.com\/generate_204'\n    interval: 1800/}" config.yaml

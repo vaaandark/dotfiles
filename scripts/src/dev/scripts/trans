@@ -3,7 +3,7 @@
 # Usage:
 #   ./trans.sh {WORD}
 # Modify the following array to set the priority
-dicts=(langdao-ec-gb oxford-gb cdict-gb kdic-computer-gb)
+dicts=(oxford-gb langdao-ec-gb cdict-gb kdic-computer-gb)
 
 word="$1"
 

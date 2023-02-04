@@ -4,7 +4,7 @@
 target="$HOME/.backup"
 
 # src
-blog="$HOME/Documents/blog"
+blog="$HOME/Documents/Blogs"
 fcitx5="$HOME/.local/share/fcitx5"
 coding_homework="/home/vandark/Documents/SchoolCodeWork"
 scripts="$HOME/src/dev/scripts"
