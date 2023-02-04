@@ -2,51 +2,44 @@
 #command=~/.config/i3blocks/title/title.sh
 #interval=1
 
+[WEATHER]
+command=curl "wttr.in/wuhan?format=%C+%t+%p+%w+%m\n"
+interval=1800
+
 [WIFI]
 command=echo "WIFI $(nmcli d w s | head -n 1 | cut -d ' ' -f2-)" | tail -n 1
 interval=5
-color=#91E78B
 
 [IP]
 command=hostname -i | awk '{ print ""$NF"" }'
-interval=5
-color=#FEC925
-
-[BATTERY]
-command=~/.config/i3blocks/battery/battery_info.sh
 interval=5
 
 [CPU]
 full_text= 0.00% 
 command=~/.config/i3blocks/cpu/cpu_info.sh
 interval=1
-color=#00B4EB
 
 [MEM]
 command=free -h | awk '/Mem:/ { printf("%5s\n", $3) }'
 interval=1
-color=#FEC925
 
 [SOUND]
 full_text= 0% 
 command=~/.config/i3blocks/sound/sound_info.sh
 interval=1
 signal=10
-color=#0EF17F
 
 [TASK]
 command=task | tail -n 1 | tr '[:lower:]' '[:upper:]'
 interval=10
-color=#E5201D
+
+[BATTERY]
+command=~/.config/i3blocks/battery/battery_info.sh
+interval=5
 
 [TIME_DATE]
-command=date +"%m/%d %H:%M"
+command=date +"%Y/%m/%d %H:%M"
 interval=1
-
-[WEATHER]
-command=curl "wttr.in/wuhan?format=%C+%t+%p+%w+%m\n"
-interval=1800
-color=#FEC925
 
 [AUTO_BACKLIGHT]
 command=~/.local/bin/set_backlight
