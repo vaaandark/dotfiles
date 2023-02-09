@@ -1,5 +1,4 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
-
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
@@ -13,7 +12,8 @@ return require('packer').startup(function(use)
   use 'skywind3000/asyncrun.vim'
   use 'lambdalisue/suda.vim'
   use({
-    'projekt0n/github-nvim-theme', tag = '0.0.x',
+    'projekt0n/github-nvim-theme',
+    tag = '0.0.x',
     config = function()
       require('github-theme').setup({
         -- ...
@@ -29,12 +29,10 @@ return require('packer').startup(function(use)
   use 'nvim-telescope/telescope.nvim'
   use {
     'lewis6991/gitsigns.nvim',
-    config = function()
-      require('gitsigns').setup()
-    end
+    config = function() require('gitsigns').setup() end
   }
-  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim'}
+  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
   use 'lervag/vimtex'
   use {
     "folke/trouble.nvim",

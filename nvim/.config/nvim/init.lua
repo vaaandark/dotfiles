@@ -1,7 +1,7 @@
 require('basic')
 require('autocmd')
-require('run-code')
-require('basic-map')
+require('run')
+require('maps')
 require('plugins')
 
 require('plugins/rainbow')

@@ -1,5 +1,5 @@
 -- Setup nvim-cmp.
-local cmp = require'cmp'
+local cmp = require 'cmp'
 
 cmp.setup({
   snippet = {
@@ -9,7 +9,7 @@ cmp.setup({
       -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
       -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
       -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-    end,
+    end
   },
   window = {
     -- completion = cmp.config.window.bordered(),
@@ -20,40 +20,31 @@ cmp.setup({
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping.confirm({select = true}) -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' }, -- For vsnip users.
+    {name = 'nvim_lsp'}, {name = 'vsnip'} -- For vsnip users.
     -- { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
-  }, {
-    { name = 'buffer' },
-  })
+  }, {{name = 'buffer'}})
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
+  sources = {{name = 'buffer'}}
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
-  })
+  sources = cmp.config.sources({{name = 'path'}}, {{name = 'cmdline'}})
 })
 
 require('lspconfig')['clangd'].setup {}
-require('lspconfig')['bashls'].setup{}
---require('lspconfig')['rust_analyzer'].setup{}
-require('lspconfig')['pyright'].setup{}
-require('lspconfig')['sumneko_lua'].setup{}
+require('lspconfig')['bashls'].setup {}
+-- require('lspconfig')['rust_analyzer'].setup{}
+require('lspconfig')['pyright'].setup {}
+require('lspconfig')['sumneko_lua'].setup {}
 

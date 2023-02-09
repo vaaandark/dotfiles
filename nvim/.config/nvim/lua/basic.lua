@@ -7,12 +7,12 @@ set.cursorline = true
 set.autoindent = true
 set.compatible = false
 set.backspace = {'indent', 'eol', 'start'}
---set.clipboard = 'unnamedplus'
+-- set.clipboard = 'unnamedplus'
 set.tabstop = 4
 set.shiftwidth = 4
 set.expandtab = true
 set.makeprg = './build.sh'
-set.scrolloff=3
+set.scrolloff = 3
 
 set.syntax = 'on'
 set.colorcolumn = '80'
