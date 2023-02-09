@@ -203,9 +203,6 @@ if [ -n "$DISPLAY" ]; then
 fi
 source "$HOME/.zsh/zsh-completions/zsh-completions.plugin.zsh"
 
-### paths ###
-export PATH="$HOME/.local/bin:$PATH"
-
 ### default editor ###
 export EDITOR=nvim
 
@@ -226,12 +223,18 @@ alias mv='mv -i'
 alias t='tmux'
 alias v='nvim'
 alias h='hx'
-alias l='ls'
+alias l='exa'
 alias c='clear'
 alias s='setxkbmap -option ctrl:swapcaps'
 alias n='neofetch'
 
 alias unkeymap='setxkbmap -option'
+
+# exa
+alias ls='exa'
+alias ll='exa -l'
+alias la='exa -a'
+alias lm='exa -m'
 
 # lf
 alias lf='lfub'
@@ -243,7 +246,7 @@ alias qr='qrcp --port 8888 --path vd --zip'
 alias objdump='objdump --disassembler-options=intel'
 
 # rmall - a self-made dictionary
-alias rl='rmall lookup -l ~/.config/rmall/oxford-gb/'
+alias rl='rmall -L'
 
 # weather
 alias weather='curl v2.wttr.in/wuhan'
