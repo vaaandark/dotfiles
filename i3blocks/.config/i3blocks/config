@@ -2,6 +2,10 @@
 #command=~/.config/i3blocks/title/title.sh
 #interval=1
 
+[bandwidth]
+command=~/.config/i3blocks/bandwidth/bandwidth_info.sh
+interval=5
+
 [WEATHER]
 command=curl "wttr.in/wuhan?format=%C+%t+%p+%w+%m\n"
 interval=1800
