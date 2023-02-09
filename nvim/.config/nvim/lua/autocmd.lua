@@ -1,21 +1,70 @@
 -- auto commands
 
-vim.cmd([[
-autocmd FileType c set tabstop=4 | set shiftwidth=4
-autocmd FileType arduino set tabstop=2 | set shiftwidth=2
-autocmd FileType cpp set tabstop=2 | set shiftwidth=2
-autocmd FileType python set tabstop=2 | set shiftwidth=2
-autocmd FileType asm set tabstop=2 | set shiftwidth=2
-autocmd FileType sh set tabstop=2 | set shiftwidth=2
-autocmd FileType zsh set tabstop=2 | set shiftwidth=2
-autocmd FileType lisp set tabstop=2 | set shiftwidth=2
-autocmd FileType lua set tabstop=2 | set shiftwidth=2
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "arduino", "cpp", "python", "asm", "bash", "zsh", "lisp", "lua" },
+  callback = function()
+    vim.opt.tabstop = 2
+    vim.opt.shiftwidth = 2
+  end,
+})
 
-augroup filetypedetect
-  au! BufRead,BufNewFile *.h         setfiletype c
-augroup END
+vim.api.nvim_create_autocmd({ "TextYankPost" }, {
+  pattern = { "*" },
+  callback = function()
+    vim.highlight.on_yank{
+      higroup="IncSearch",
+      timeout=700
+    }
+  end
+})
 
-autocmd BufReadPost * if line("'\"'") > 1 && line("'\'") <= line("$") | exe "normal! g'\"" | endif
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+  pattern = { "*" },
+  callback = function()
+    -- adapted from https://github.com/ethanholz/nvim-lastplace/blob/main/lua/nvim-lastplace/init.lua
+    local ignore_buftype = { "quickfix", "nofile", "help" }
+    local ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" }
 
-au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}
-]])
+    local function run()
+      if vim.tbl_contains(ignore_buftype, vim.bo.buftype) then
+        return
+      end
+
+      if vim.tbl_contains(ignore_filetype, vim.bo.filetype) then
+        -- reset cursor to first line
+        vim.cmd[[normal! gg]]
+        return
+      end
+
+      -- If a line has already been specified on the command line, we are done
+      --   nvim file +num
+      if vim.fn.line(".") > 1 then
+        return
+      end
+
+      local last_line = vim.fn.line([['"]])
+      local buff_last_line = vim.fn.line("$")
+
+      -- If the last line is set and the less than the last line in the buffer
+      if last_line > 0 and last_line <= buff_last_line then
+        local win_last_line = vim.fn.line("w$")
+        local win_first_line = vim.fn.line("w0")
+        -- Check if the last line of the buffer is the same as the win
+        if win_last_line == buff_last_line then
+          -- Set line to last line edited
+          vim.cmd[[normal! g`"]]
+          -- Try to center
+        elseif buff_last_line - last_line > ((win_last_line - win_first_line) / 2) - 1 then
+          vim.cmd[[normal! g`"zz]]
+        else
+          vim.cmd[[normal! G'"<c-e>]]
+        end
+      end
+    end
+
+    vim.api.nvim_create_autocmd({'BufWinEnter', 'FileType'}, {
+      group    = vim.api.nvim_create_augroup('nvim-lastplace', {}),
+      callback = run
+    })
+  end
+})

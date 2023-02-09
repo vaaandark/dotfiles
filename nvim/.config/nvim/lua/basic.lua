@@ -18,3 +18,5 @@ set.syntax = 'on'
 set.colorcolumn = '80'
 vim.wo.signcolumn = 'yes'
 set.mouse = ''
+
+vim.api.nvim_set_var("c_syntax_for_h", 1)
