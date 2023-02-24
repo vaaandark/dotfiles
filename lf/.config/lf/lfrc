@@ -57,7 +57,7 @@ cmd open ${{
             mpv --audio-display=no $f
         ;;
         video/*|application/vnd.rn-realmedia)
-            setsid -f mpv $f -quiet >/dev/null 2>&1
+            setsid -f mpv $f >/dev/null 2>&1
         ;;
         application/pdf|application/vnd.djvu|application/epub*)
             setsid -f zathura $fx >/dev/null 2>&1
