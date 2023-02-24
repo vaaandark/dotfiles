@@ -4,17 +4,14 @@ local api = vim.api
 vim.g.mapleader = " "
 
 -- quickly change buffer in the list
--- open a new empty buffer
-api.nvim_set_keymap('n', '<leader>B', ':enew<CR>',
-                    {noremap = true, silent = true})
 -- show all open buffers and their status
 api.nvim_set_keymap('n', '<leader>bl', ':ls<CR>',
                     {noremap = true, silent = true})
 -- move to the previous buffer
-api.nvim_set_keymap('n', '<leader>p', ':bprevious<CR>',
+api.nvim_set_keymap('n', '<leader>[', ':bprevious<CR>',
                     {noremap = true, silent = true})
 -- move to the next buffer
-api.nvim_set_keymap('n', '<leader>n', ':bnext<CR>',
+api.nvim_set_keymap('n', '<leader>]', ':bnext<CR>',
                     {noremap = true, silent = true})
 -- move to the first buffer
 api.nvim_set_keymap('n', '<leader>bf', ':bfirst<CR>',
@@ -36,3 +33,19 @@ api.nvim_set_keymap('n', 'N', 'Nzz', {noremap = true, silent = true})
 
 -- copy to system clipboard
 api.nvim_set_keymap('v', 'Y', '"+y', {noremap = true, silent = true})
+
+-- create a new tab
+api.nvim_set_keymap('n', 't', ':tabnew ',
+                    {noremap = true, silent = false})
+-- move to the previous tab
+api.nvim_set_keymap('n', '<leader>p', ':tabprevious<CR>',
+                    {noremap = true, silent = true})
+-- move to the next tab
+api.nvim_set_keymap('n', '<leader>n', ':tabnext<CR>',
+                    {noremap = true, silent = true})
+-- move to the first tab
+api.nvim_set_keymap('n', '<leader>tf', ':tabfirst<CR>',
+                    {noremap = true, silent = true})
+-- move to the last tab
+api.nvim_set_keymap('n', '<leader>tl', ':tablast<CR>',
+                    {noremap = true, silent = true})
