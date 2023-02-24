@@ -36,7 +36,9 @@ g() {
 
 # du
 d() {
-  du -sh "$1"
+  for i in $@; do
+    du -sh "$i"
+  done
 }
 
 # xdg-open many files
@@ -64,6 +66,7 @@ umntu() {
 # send notify while finishing a task
 _prepare() {
   cmd_start_time="$SECONDS"
+  last_cmd="$1"
   if [[ -n "DISPLAY" ]]; then
     cmd_active_window=$(xdotool getactivewindow)
   fi
@@ -72,15 +75,20 @@ _prepare() {
 add-zsh-hook preexec _prepare
 
 _finish_check() {
+  local ret="$?"
   local delta_time=$((SECONDS - cmd_start_time))
   ((sec=delta_time%60, min=delta_time/60, hrs=delta_time/3600))
   local time_info="total ${hrs}h ${min}m ${sec}s"
-  local msg="$(fc -l | tail -n 1 | cut -d ' ' -f3-)
+  local msg="  $last_cmd
 ${time_info}"
   if [[ -n "$DISPLAY" ]]; then
     local active_window=$(xdotool getactivewindow 2> /dev/null)
     if [[ -n "${cmd_active_window}" && "${active_window}" != "$cmd_active_window" ]]; then
-      notify-send -u normal DONE "${msg}"
+      if [[ "$ret" -eq 0 ]]; then
+        notify-send -u normal DONE "${msg}"
+      else
+        notify-send -u critical FAILED "${msg}"
+      fi
     fi
   fi
   [[ ${delta_time} -lt 10 ]] && return
@@ -99,7 +107,7 @@ _starm_ls() {
     last_ls=$(command ls | base32)
     last_pwd="$PWD"
     if [[ $(command ls | command wc -l) -lt 32 ]]; then
-      ls
+      exa
     fi
   fi
 }
@@ -169,6 +177,11 @@ md() {
   else
     mkdir "$@"
   fi
+}
+
+# edit scripts in path
+wv() {
+  nvim $(which $@)
 }
 
 ### customize the grml-zsh-config ###
@@ -255,6 +268,9 @@ alias wea='curl "wttr.in/wuhan?format=%C+%t+%p\n"'
 # nvim no plugins
 alias vi='nvim --noplugin'
 
+# nvim split
+alias vs='nvim -O'
+
 # nmcli
 alias nmr='nmcli d w r'
 
@@ -325,7 +341,12 @@ alias unproxy='unset http_proxy; unset https_proxy'
 # md
 alias mkd='mkdir'
 
-eval "$(lua "$HOME/src/tools/z.lua/z.lua"  --init zsh once enhanced)"
+# z.lua
+eval "$(lua "$HOME/.zsh/z.lua"  --init zsh once enhanced)"
+alias zz='z -c'      # restrict matches to subdirs of $PWD
+alias zi='z -i'      # cd with interactive selection
+alias zf='z -I'      # use fzf to select in multiple matches
+alias zb='z -b'      # quickly cd to the parent directory
 
 ### consolefonts setting ###
 if [ $TERM = linux ]; then
