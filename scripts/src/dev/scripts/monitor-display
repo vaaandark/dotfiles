@@ -54,7 +54,6 @@ fi
 
 if xrandr | grep -q 'HDMI-A-0 connected'; then
   display 'HDMI-A-0' "$1" "$2"
-  "$HOME/.local/bin/set_wallpapers"
 elif xrandr | grep -q 'DisplayPort-0 connected'; then
   display 'DisplayPort-0' "$1" "$2"
 else
