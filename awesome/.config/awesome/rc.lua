@@ -255,12 +255,9 @@ awful.screen.connect_for_each_screen(function(s)
       separator(),
       bar.bat(),
       separator(),
-      bar.vol(),
-      separator(),
-      bar.task(),
-      separator(),
       mytextclock,
       separator(),
+      bar.vol(),
       -- awful.widget.watch("sh -c 'curl -s --no-progress-meter --connect-timeout 3 wttr.in/wuhan?format=%C+%t+%p+%w+%m\n'", 1800),
       wibox.widget.systray(),
       s.mylayoutbox,
@@ -579,10 +576,12 @@ awful.rules.rules = {
         "pinentry"
       },
       class = {
-        "QQ", "TelegramDesktop", "Bytedance-feishu",
+        "QQ", "TelegramDesktop", "Feishu", "weixin", "wemeetapp", "org.jackhuang.hmcl.Launcher",
+        "VirtualBox", "VirtualBox Machine", "VirtualBox Manager",
         "Arandr", "Blueman-manager", "Gpick", "Kruler", "MessageWin", -- kalarm.
         "Sxiv", "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
-        "Wpa_gui", "veromix", "xtightvncviewer"
+        "Wpa_gui", "veromix", "xtightvncviewer",
+        "org.jackhuang.hmcl.Launcher"
       },
 
       -- Note that the name property shown in xprop might be set slightly after creation of the client
@@ -617,7 +616,7 @@ awful.rules.rules = {
     properties = { screen = 1, tag = "五" }
   },
   {
-    rule = { class = "Bytedance-feishu" },
+    rule = { class = "Feishu" },
     properties = { screen = 1, tag = "五" }
   },
   {
@@ -751,11 +750,11 @@ screen.connect_signal("request::desktop_decoration", function(s)
 end)
 -- }}}
 
-client.connect_signal("manage", function (c)
-  c.shape = function(cr, w, h)
-    gears.shape.rounded_rect(cr, w, h, 15)
-  end
-end)
+-- client.connect_signal("manage", function (c)
+--   c.shape = function(cr, w, h)
+--     gears.shape.rounded_rect(cr, w, h, 15)
+--   end
+-- end)
 
 -- Startup application or scripts
 for _, i in pairs(externals.startup) do awful.util.spawn(i) end

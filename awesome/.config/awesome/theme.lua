@@ -23,14 +23,14 @@ theme.fg_focus = "#ffffff"
 theme.fg_urgent = "#ffffff"
 theme.fg_minimize = "#ffffff"
 
-theme.useless_gap = dpi(5)
+--theme.useless_gap = dpi(5)
 theme.border_width = dpi(2)
 theme.border_normal = "#000000"
 theme.border_focus = "#327bd1"
 theme.border_marked = "#91231c"
 
 -- Variables set for theming notifications:
-theme.notification_font = "SauceCodePro Nerd Font 14"
+theme.notification_font = "WenQuanYi Zen Hei Mono 14"
 theme.notification_margin = dpi(2)
 theme.notification_border_color = theme.border_normal
 theme.notification_border_width = theme.border_width

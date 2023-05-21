@@ -7,7 +7,15 @@ local function separator()
 end
 
 local function vol()
-  local volume = lain.widget.alsabar()
+  local volume = lain.widget.alsabar {
+    width = 100,
+    margins = 6,
+    colors = {
+      background = "#24292E",
+      mute = "#EB8F8F",
+      unmute = "#A4CE8A"
+    }
+  }
   volume.bar:buttons(awful.util.table.join(
     awful.button({}, 1, function() -- left click
       os.execute(string.format("%s set %s toggle", volume.cmd, volume.togglechannel or volume.channel))

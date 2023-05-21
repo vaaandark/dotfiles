@@ -5,8 +5,9 @@ local icon_path = os.getenv("HOME") .. "/.config/awesome/images/power.png"
 
 local state = { cid = nil }
 
-local lock_command = '$HOME/.local/bin/fancy-lock && sleep 1 && '
-local lock = { "Lock", lock_command }
+local lock_path = "$HOME/.local/bin/fancy-lock"
+local lock_command = lock_path .. ' && sleep 1 && '
+local lock = { "Lock", lock_path }
 local shutdown = { "Shut down", "shutdown now" }
 local reboot = { "Reboot", "systemctl reboot" }
 local suspend = { "Suspend", lock_command .. "systemctl suspend" }
