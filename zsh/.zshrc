@@ -16,9 +16,9 @@ mdless() {
 # fedora paste
 fp() {
   if [[ -n "$1" && -f "$1" ]]; then
-    cat "$1" | fpaste -t "$(basename $1)"
+    cat "$1" | fpaste -t "$(basename $1)" | xclip -sel clip
   else
-    fpaste
+    fpaste | xclip -sel clip
   fi
 }
 
@@ -67,7 +67,7 @@ umntu() {
 _prepare() {
   cmd_start_time="$SECONDS"
   last_cmd="$1"
-  if [[ -n "DISPLAY" ]]; then
+  if [[ -n "$DISPLAY" ]]; then
     cmd_active_window=$(xdotool getactivewindow)
   fi
 }
@@ -129,7 +129,12 @@ md2pdf() {
 # defaultly, read url from clipboard
 gcl() {
   if [[ -z $@ ]]; then
-    git clone $(xclip -selection clipboard -o)
+    repo="$(xclip -selection clipboard -o)"
+    if [[ "$repo" =~ "git clone" ]]; then
+      zsh -c "$repo"
+    else
+      git clone "$repo"
+    fi
   else
     git clone $@
   fi
@@ -350,5 +355,7 @@ alias zb='z -b'      # quickly cd to the parent directory
 
 ### consolefonts setting ###
 if [ $TERM = linux ]; then
-  setfont /usr/share/consolefonts/Insonsolata/Inconsolata-32b.psf
+  if [ -d /usr/share/consolefonts/Insonsolata/Inconsolata-32b.psf ]; then
+    setfont /usr/share/consolefonts/Insonsolata/Inconsolata-32b.psf
+  fi
 fi
