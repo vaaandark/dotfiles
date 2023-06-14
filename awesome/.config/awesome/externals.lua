@@ -9,7 +9,8 @@ externals.startup = {
   'battery-check',
   "sh -c 'xss-lock --transfer-sleep-lock -- $HOME/.local/bin/fancy-lock && sleep 1 && systemctl suspend --nofork'",
   'set_backlight',
-  'clash-verge'
+  'clash-verge',
+  'copyq'
 }
 
 externals.keybindings = {
@@ -29,7 +30,8 @@ externals.keybindings = {
   { {}, "XF86AudioMute", "pactl set-sink-mute @DEFAULT_SINK@ toggle", "mute the volume" },
   { {}, "XF86AudioMicMute", "pactl set-source-mute @DEFAULT_SOURCE@ toggle", "unmut the volume" },
   { {}, "XF86MonBrightnessUp", "lightup", "backlight up" },
-  { {}, "XF86MonBrightnessDown", "lightdown", "backlight down" }
+  { {}, "XF86MonBrightnessDown", "lightdown", "backlight down" },
+  { { "Control" }, ";", "copyq menu" }
 }
 
 return externals

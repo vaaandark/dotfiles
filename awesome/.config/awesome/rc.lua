@@ -202,11 +202,34 @@ end
 screen.connect_signal("property::geometry", reset_apps_dpi)
 
 awful.screen.connect_for_each_screen(function(s)
+  -- For toggle systray
+  s.systray = wibox.widget.systray()
+  s.systray.visible = false
+
   -- Wallpaper
   reset_apps_dpi(s)
 
   -- Each screen has its own tag table.
   awful.tag({ "一", "二", "三", "四", "五", "六", "七", "八", "九" }, s, awful.layout.layouts[1])
+
+local volume = bar.vol()
+volume.widget:buttons(awful.util.table.join(
+    awful.button({}, 1, function() -- right click
+        os.execute(string.format("%s set %s toggle", volume.cmd, volume.togglechannel or volume.channel))
+        volume.update()
+    end),
+    awful.button({}, 3, function() -- left click
+        awful.spawn(string.format("%s -e alsamixer", terminal))
+    end),
+    awful.button({}, 4, function() -- scroll up
+        os.execute(string.format("%s set %s 1%%+", volume.cmd, volume.channel))
+        volume.update()
+    end),
+    awful.button({}, 5, function() -- scroll down
+        os.execute(string.format("%s set %s 1%%-", volume.cmd, volume.channel))
+        volume.update()
+    end)
+))
 
   -- Create a promptbox for each screen
   s.mypromptbox = awful.widget.prompt()
@@ -253,13 +276,13 @@ awful.screen.connect_for_each_screen(function(s)
       separator(),
       bar.cpu(),
       separator(),
+      volume,
+      separator(),
       bar.bat(),
       separator(),
       mytextclock,
-      separator(),
-      bar.vol(),
       -- awful.widget.watch("sh -c 'curl -s --no-progress-meter --connect-timeout 3 wttr.in/wuhan?format=%C+%t+%p+%w+%m\n'", 1800),
-      wibox.widget.systray(),
+      s.systray,
       s.mylayoutbox,
     }
   }
@@ -284,6 +307,7 @@ local rofi_drun =
 local xrandr = require("xrandr")
 
 globalkeys = gears.table.join(
+  awful.key({ modkey }, "=", function () awful.screen.focused().systray.visible = not awful.screen.focused().systray.visible end, {description = "Toggle systray visibility", group = "custom"}),
   awful.key({ modkey }, "Delete", function() exit.exit() end,
             { "awesomewm exit", "awesome" }),
   awful.key({ modkey }, "p", function() xrandr.xrandr() end,
@@ -643,6 +667,8 @@ client.connect_signal("manage", function(c)
     -- Prevent clients from being unreachable after screen count changes.
     awful.placement.no_offscreen(c)
   end
+
+  awful.client.movetoscreen(c, mouse.screen)
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.

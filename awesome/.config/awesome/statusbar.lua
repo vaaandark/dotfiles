@@ -3,41 +3,19 @@ local wibox = require("wibox")
 local lain = require("lain")
 
 local function separator()
-  return wibox.widget.textbox(" | ")
+  return wibox.widget.textbox("  ")
 end
 
 local function vol()
-  local volume = lain.widget.alsabar {
-    width = 100,
-    margins = 6,
-    colors = {
-      background = "#24292E",
-      mute = "#EB8F8F",
-      unmute = "#A4CE8A"
-    }
-  }
-  volume.bar:buttons(awful.util.table.join(
-    awful.button({}, 1, function() -- left click
-      os.execute(string.format("%s set %s toggle", volume.cmd, volume.togglechannel or volume.channel))
-      volume.update()
-    end),
-    awful.button({}, 2, function() -- middle click
-      os.execute(string.format("%s set %s 100%%", volume.cmd, volume.channel))
-      volume.update()
-    end),
-    awful.button({}, 3, function() -- right click
-      awful.spawn(string.format("%s -e alsamixer", terminal))
-    end),
-    awful.button({}, 4, function() -- scroll up
-      os.execute(string.format("%s set %s 1%%+", volume.cmd, volume.channel))
-      volume.update()
-    end),
-    awful.button({}, 5, function() -- scroll down
-      os.execute(string.format("%s set %s 1%%-", volume.cmd, volume.channel))
-      volume.update()
-    end)
-  ))
-  return volume.bar
+  local volume = lain.widget.alsa {
+    timeout = 1,
+    settings = function()
+      local vol_icon = " "
+      if volume_now.status == "on" then
+        vol_icon = " "
+      end
+      widget:set_markup(string.format("%s %d%%", vol_icon, volume_now.level)) end }
+  return volume
 end
 
 local function devided_or_not(n)
@@ -58,8 +36,8 @@ local function mem()
       else
         used = string.format("%.1fM", mem_now.used)
       end
-      widget:set_markup(used)
-  end
+      widget:set_markup("  " .. used)
+    end
   }
   return mem_.widget
 end
@@ -67,23 +45,25 @@ end
 local function cpu()
   local cpu_ = lain.widget.cpu {
     settings = function()
-      widget:set_markup(string.format("%3d%%", cpu_now.usage))
+      widget:set_markup(string.format("  %3d%%", cpu_now.usage))
     end
   }
   return cpu_.widget
 end
 
 local function bat()
+  local bat_icons = { " ", " ", " ", " " }
   local bat_ = lain.widget.bat {
     battery = "BAT0",
     notify = "off",
     settings = function()
       if bat_now.status ~= "N/A" then
         local text = tostring(bat_now.perc) .. "%"
+        local bat_icon = bat_icons[(bat_now.perc - 1) // 25 + 1]
         if bat_now.status == "Charging" then
-          text = text .. "+"
+          bat_icon = " "
         end
-        widget:set_markup("BAT " .. text)
+        widget:set_markup(bat_icon .. "   " .. text)
       end
     end
   }
@@ -106,7 +86,7 @@ local function net()
       else
         received = string.format("%.1fK", net_now.received)
       end
-      widget:set_markup(sent .. "↑ " .. received .. "↓")
+      widget:set_markup("   " .. sent .. " /   " .. received)
     end
   }
   return net_.widget

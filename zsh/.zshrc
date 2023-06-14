@@ -16,9 +16,9 @@ mdless() {
 # fedora paste
 fp() {
   if [[ -n "$1" && -f "$1" ]]; then
-    cat "$1" | fpaste -t "$(basename $1)" | xclip -sel clip
+    fpaste -o -t "$(basename $1)" "$1"
   else
-    fpaste | xclip -sel clip
+    fpaste -i -o
   fi
 }
 
@@ -340,8 +340,8 @@ alias disslp='sudo systemctl mask sleep.target suspend.target hibernate.target h
 alias enslp='sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target'
 
 # proxy
-alias proxy='export http_proxy="http://127.0.0.1:7890"; export https_proxy="http://127.0.0.1:7890"'
-alias unproxy='unset http_proxy; unset https_proxy'
+alias proxy='export http_proxy="http://127.0.0.1:7890"; export https_proxy="$http_proxy"; export all_proxy=$http_proxy'
+alias unproxy='unset -v http_proxy https_proxy all_proxy'
 
 # md
 alias mkd='mkdir'
