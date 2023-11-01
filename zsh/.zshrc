@@ -122,7 +122,11 @@ fm() {
 
 # md2pdf
 md2pdf() {
-  pandoc --pdf-engine=xelatex -V CJKmainfont="WenQuanYi Zen Hei" "$@"
+  pandoc --pdf-engine=xelatex -V CJKmainfont="Noto Sans CJK SC" "$@"
+}
+
+md2html2pdf() {
+  pandoc --pdf-engine=wkhtmltopdf -V CJKmainfont="Noto Sans CJK SC" "$@"
 }
 
 # git clone
@@ -189,8 +193,14 @@ wv() {
   nvim $(which $@)
 }
 
+# count history commands
+histcnt() {
+  test "$#" -eq 1 || return 1
+  history 1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl | head -n "$1"
+}
+
 ### customize the grml-zsh-config ###
-zstyle ':prompt:grml:left:setup' items rc change-root path vcs newline jobs
+zstyle ':prompt:grml:left:setup' items rc time change-root path vcs newline jobs
 autoload -U colors && colors
   zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:*' check-for-changes true
@@ -224,7 +234,7 @@ source "$HOME/.zsh/zsh-completions/zsh-completions.plugin.zsh"
 ### default editor ###
 export EDITOR=nvim
 
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANPAGER="sh -c 'col -bx | bat --theme GitHub -l man -p'"
 export MANROFFOPT="-c"
 
 ### pdf viewer
@@ -258,13 +268,13 @@ alias lm='exa -m'
 alias lf='lfub'
 
 # qrcp
-alias qr='qrcp --port 8888 --path vd --zip'
+alias qr='qrcp --port 8888 --path vd'
 
 # disassembly
 alias objdump='objdump --disassembler-options=intel'
 
-# rmall - a self-made dictionary
-alias rl='rmall -L'
+# dioxionary - a self-made dictionary
+alias rl='dioxionary -L'
 
 # weather
 alias weather='curl v2.wttr.in/wuhan'
@@ -280,18 +290,28 @@ alias vs='nvim -O'
 alias nmr='nmcli d w r'
 
 # git
+alias ga='git add'
+alias gsw='git switch'
 alias gst='git status'
 alias gck='git checkout'
 alias grm='git rm'
 alias gmv='git mv'
 alias gcm='git commit'
+alias gcmm='git commit -m'
 alias gps='git push'
 alias gpl='git pull'
 alias gfc='git fetch'
-alias glg='git log'
+alias gfa='git fetch --all'
+alias glg='git log --graph'
+alias gbr='git branch'
+alias gbl='git branch -l'
+alias gdf='git diff'
+alias gdc='git diff --cached'
+alias gmg='git merge'
 
 # cd tricks
 alias ...='../..'
+alias ....='../../..'
 alias -- -='cd -'
 
 # clip
@@ -314,7 +334,7 @@ alias rmk='make clean && make'
 
 # compile flags
 alias cc='gcc -Wall -Werror -Wshadow -g -fsanitize=address -O0'
-alias xx='g++ -Wall -Werror -Wshadow -g -fsanitize=address -O0'
+alias xx='g++ -std=c++17 -Wall -Werror -Wshadow -g -fsanitize=address -O0'
 alias clx='clang++ -std=c++2a -Wall -Werror -Wshadow -g -fsanitize=address -O0'
 alias c2asm='gcc -fomit-frame-pointer -fverbose-asm -O0 -masm=intel -S'
 
@@ -352,6 +372,21 @@ alias zz='z -c'      # restrict matches to subdirs of $PWD
 alias zi='z -i'      # cd with interactive selection
 alias zf='z -I'      # use fzf to select in multiple matches
 alias zb='z -b'      # quickly cd to the parent directory
+export _ZL_ECHO=1
+export _ZL_HYPHEN=1
+
+# dirs
+alias psd='pushd'
+alias ppd='popd'
+
+# dioxionary completion
+eval "$(dioxionary -c zsh)"
+
+# tar zstd
+zst() {
+  [[ "$#" == 1 ]] || return
+  tar --zstd -cf "$1"{.tar.zst,}
+}
 
 ### consolefonts setting ###
 if [ $TERM = linux ]; then
@@ -359,3 +394,6 @@ if [ $TERM = linux ]; then
     setfont /usr/share/consolefonts/Insonsolata/Inconsolata-32b.psf
   fi
 fi
+
+HISTSIZE=99999999
+
