@@ -303,7 +303,7 @@ root.buttons(gears.table.join(
 local rofi_run =
     'rofi -show run -font "Source Code Pro 24" -theme "/usr/share/rofi/themes/Arc-Dark.rasi"'
 local rofi_drun =
-    'rofi -show drun -font "Source Code Pro 24" -theme "/usr/share/rofi/themes/Arc-Dark.rasi" -show-icons -icon-theme hicolor'
+    'rofi -show drun -font "Source Code Pro 24" -theme "/usr/share/rofi/themes/Arc-Dark.rasi" -show-icons -icon-theme Paper'
 local xrandr = require("xrandr")
 
 globalkeys = gears.table.join(

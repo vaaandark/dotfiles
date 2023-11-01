@@ -12,16 +12,25 @@ local theme = {}
 
 theme.font = "Noto Sans CJK SC Bold 10"
 
-theme.bg_normal = "#2c313a"
-theme.bg_focus = "#24292e"
-theme.bg_urgent = "#ff0000"
-theme.bg_minimize = "#444444"
-theme.bg_systray = theme.bg_normal
+--theme.bg_normal = "#2c313a"
+--theme.bg_focus = "#24292e"
+--theme.bg_urgent = "#ff0000"
+--theme.bg_minimize = "#444444"
+--theme.bg_systray = theme.bg_normal
+--
+--theme.fg_normal = "#aaaaaa"
+--theme.fg_focus = "#ffffff"
+--theme.fg_urgent = "#ffffff"
+--theme.fg_minimize = "#ffffff"
 
-theme.fg_normal = "#aaaaaa"
-theme.fg_focus = "#ffffff"
-theme.fg_urgent = "#ffffff"
-theme.fg_minimize = "#ffffff"
+theme.fg_normal  = "#3D3D3D"
+theme.fg_focus   = "#333333"
+theme.fg_urgent  = "#CC9393"
+
+theme.bg_normal  = "#D6D6D6"
+theme.bg_focus   = "#A4A4A4"
+theme.bg_urgent  = "#3F3F3F"
+theme.bg_systray = "#d6d6d6"
 
 --theme.useless_gap = dpi(5)
 theme.border_width = dpi(2)
@@ -151,8 +160,8 @@ theme.awesome_icon = theme_assets.awesome_icon(theme.menu_height,
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = nil
-theme.release_icon = os.getenv("HOME") .. "/.config/awesome/images/fedora-logo-icon.png"
+theme.icon_theme = "/usr/share/icons/Paper"
+theme.release_icon = os.getenv("HOME") .. "/.config/awesome/images/arch-logo-icon.png"
 
 return theme
 
