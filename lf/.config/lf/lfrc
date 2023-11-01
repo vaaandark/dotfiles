@@ -159,7 +159,7 @@ map c push A<c-u>           # totally new rename
 
 map V push :!nvim<space>
 
-map W $setsid -f urxvt -geometry 80x20 -name "floating_urxvt" >/dev/null 2>&1
+map W $setsid -f alacritty --class=floating-term >/dev/null 2>&1
 
 # copy the names of selections
 map Y $printf "%s" "$fx" | xclip -selection clipboard
