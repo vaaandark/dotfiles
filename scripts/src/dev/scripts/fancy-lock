@@ -1,7 +1,37 @@
 #!/bin/sh
-tmp_bg=$(mktemp /tmp/screen-XXXX.png)
-lock_icon="$HOME/.config/i3/avatars.png"
-resolution=$(xrandr | grep 'current' | sed -E 's/.*current\s([0-9]+)\sx\s([0-9]+).*/\1x\2/')
-ffmpeg -f x11grab -video_size "${resolution}" -y -i "$DISPLAY" -i "${lock_icon}" -filter_complex "boxblur=5:1,overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2" -vframes 1 "${tmp_bg}" -loglevel quiet
-i3lock -e -i "${tmp_bg}"
-rm "${tmp_bg}"
+
+BLANK='#00000000'
+CLEAR='#ffffff22'
+DEFAULT='#00897bE6'
+TEXT='#00897bE6'
+WRONG='#880000bb'
+VERIFYING='#00564dE6'
+
+i3lock \
+--insidever-color=$CLEAR     \
+--ringver-color=$VERIFYING   \
+\
+--insidewrong-color=$CLEAR   \
+--ringwrong-color=$WRONG     \
+\
+--inside-color=$BLANK        \
+--ring-color=$DEFAULT        \
+--line-color=$BLANK          \
+--separator-color=$DEFAULT   \
+\
+--verif-color=$TEXT          \
+--wrong-color=$TEXT          \
+--time-color=$TEXT           \
+--date-color=$TEXT           \
+--layout-color=$TEXT         \
+--keyhl-color=$WRONG         \
+--bshl-color=$WRONG          \
+\
+--screen 1                   \
+--blur 9                     \
+--clock                      \
+--indicator                  \
+--time-str="%H:%M:%S"        \
+--date-str="%A, %Y-%m-%d"    \
+--keylayout 1                \
+
