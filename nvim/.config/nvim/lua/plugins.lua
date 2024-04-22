@@ -1,60 +1,65 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
--- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
-return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+local plugins = {}
 
-  use 'jiangmiao/auto-pairs'
-  use 'luochen1990/rainbow'
-  use 'iamcco/markdown-preview.nvim'
-  use 'skywind3000/vim-terminal-help'
-  use 'skywind3000/asyncrun.vim'
-  use 'lambdalisue/suda.vim'
-  use({
-    'projekt0n/github-nvim-theme',
-    tag = '0.0.x',
-    config = function()
-      require('github-theme').setup({
-        -- ...
-      })
-    end
-  })
-  use 'Yggdroot/indentLine'
-  use 'tpope/vim-surround'
-  use 'nvim-lualine/lualine.nvim'
-  use 'kyazdani42/nvim-web-devicons'
-  use 'goolord/alpha-nvim'
-  use 'nvim-lua/plenary.nvim'
-  use 'nvim-telescope/telescope.nvim'
-  use {
-    'lewis6991/gitsigns.nvim',
-    config = function() require('gitsigns').setup() end
-  }
-  use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim'}
-  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-  use 'lervag/vimtex'
-  use {
-    "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require("trouble").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
+plugins.setup = function ()
+  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    vim.fn.system({
+      "git",
+      "clone",
+      "--filter=blob:none",
+      "https://github.com/folke/lazy.nvim.git",
+      "--branch=stable", -- latest stable release
+      lazypath,
+    })
+  end
+  vim.opt.rtp:prepend(lazypath)
+
+  require("lazy").setup({
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+    {
+      'projekt0n/github-nvim-theme',
+      lazy = false,
+      priority = 1000,
+      config = function()
+        require('github-theme').setup()
+        vim.cmd('colorscheme github_light')
+      end,
+    },
+    {
+      'mrcjkb/rustaceanvim',
+      version = '^4', -- Recommended
+      lazy = false, -- This plugin is already lazy
+    },
+    'Yggdroot/indentLine',
+    'nvim-lualine/lualine.nvim',
+    'kyazdani42/nvim-web-devicons',
+    {
+      'windwp/nvim-autopairs',
+      event = "InsertEnter",
+      config = true,
+      opts = {
+        map_c_h = true,  -- Map the <C-h> key to delete a pair
+        map_c_w = true, -- map <c-w> to delete a pair if possible
       }
-    end
-  }
+    },
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-cmdline',
+    'hrsh7th/nvim-cmp',
+    {
+      "L3MON4D3/LuaSnip",
+      version = "v2.*",
+      build = "make install_jsregexp"
+    },
+    {
+      'stevearc/conform.nvim',
+      opts = {},
+    },
+  })
+end
 
-  use 'neovim/nvim-lspconfig'
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-cmdline'
-  use 'hrsh7th/nvim-cmp'
+return plugins
 
-  use 'hrsh7th/cmp-vsnip'
-  use 'hrsh7th/vim-vsnip'
-  use 'simrat39/rust-tools.nvim'
-
-end)

@@ -1,7 +1,9 @@
-require('lualine').setup {
+local lualine = require('lualine')
+local setup = lualine.setup
+lualine.etup = setup {
   options = {
     icons_enabled = true,
-    theme = 'auto',
+    theme = 'onelight',
     component_separators = {left = '', right = ''},
     section_separators = {left = '', right = ''},
     disabled_filetypes = {statusline = {}, winbar = {}},
@@ -30,5 +32,6 @@ require('lualine').setup {
   inactive_winbar = {},
   extensions = {}
 }
-options = {theme = 'gruvbox'}
+
+return lualine
 

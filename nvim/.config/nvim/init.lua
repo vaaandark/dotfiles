@@ -1,21 +1,15 @@
-require('basic')
-require('autocmd')
-require('run')
-require('maps')
-require('plugins')
+require('default').setup()
+require('keymaps').setup()
+require('autocmd').setup()
 
-require('plugins/rainbow')
-require('plugins/markdown-preview')
-require('plugins/asyncrun')
-require('plugins/suda')
-require('plugins/alpha-nvim')
-require('plugins/telescope')
-require('plugins/vim-vsnip')
-require('plugins/lspconfig')
-require('plugins/nvim-cmp')
-require('plugins/lualine')
-require('plugins/gitsigns')
-require('plugins/nvim-treesitter')
-require('plugins/vimtex')
-require('plugins/trouble')
-require('plugins/rust-tools')
+-- use lasy.nvim to manage plugins
+require('plugins').setup()
+
+-- LSP
+require('lsp').setup()
+require('lsp_cmp').setup()
+require('lsp_fmt').setup()
+
+-- lualine
+require('plugins.lualine').setup()
+
